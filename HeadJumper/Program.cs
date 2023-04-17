@@ -14,5 +14,8 @@ void Setup()
 
 void Draw()
 {
-    e.Run();
+    while (!Raylib.WindowShouldClose())
+    {
+        e.Run();
+    }
 }
