@@ -1,5 +1,6 @@
 using Raylib_cs;
 using System.Numerics;
+using Raylib_cs;
 
 public enum Dir
 {
@@ -10,6 +11,12 @@ public enum Dir
 public class Player
 {
     public Vector2 Position { get; set; }
+    public float Zoom { get; set; } = 1;
+    public Vector2 Size { get; set; } = new(10, 10);
+    public Color C { get; set; } = Color.RED;
+    public float Speed { get; set; } = 5;
+    public float JumpStart { get; set; } = -10;
+    public float JumpChange { get; set; } = 0.05f;
 
     PowerUpController powerUpController;
 
@@ -32,5 +39,10 @@ public class Player
     public void Draw()
     {
         Raylib.DrawRectangle((int)Position.X, (int)Position.Y, 5, 5, Color.GREEN);
+    }
+
+    public void Jump()
+    {
+        Position = Position - new()
     }
 }
