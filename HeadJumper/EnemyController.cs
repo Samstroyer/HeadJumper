@@ -7,14 +7,7 @@ public class EnemyController
 
     public EnemyController()
     {
-        Enemies.Add(new SlowEnemy()
-        {
-            Position = new(100, 0),
-            C = Color.RED,
-            JumpStrength = 10f,
-            Size = new(10, 10),
-            Speed = -1f
-        });
+        Enemies.Add(new SlowEnemy());
     }
 
     public void DrawEnemies()

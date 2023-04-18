@@ -1,39 +1,57 @@
-using Raylib_cs;
 using System.Numerics;
 using Raylib_cs;
 
 public enum Dir
 {
-    Left = -1,
-    Right = 1
+    Left = -5,
+    Right = 5,
+    None = 0
 }
 
 public class Player
 {
     public Vector2 Position { get; set; }
-    public float Zoom { get; set; } = 1;
     public Vector2 Size { get; set; } = new(10, 10);
+    public Vector2 Speed { get; set; } = new(0, 0);
+
+    // Meme
+    private bool TouchingGrass = true;
+
+    public float Zoom { get; set; } = 2f;
+
     public Color C { get; set; } = Color.RED;
-    public float Speed { get; set; } = 5;
-    public float JumpStart { get; set; } = -10;
-    public float JumpChange { get; set; } = 0.05f;
+
+    public Dir movement = Dir.None;
 
     PowerUpController powerUpController;
 
     public Player()
     {
-        Position = new(10, 10);
+        Position = new(10, 20);
         powerUpController = new();
     }
 
-    public void Jump()
+    public void Move()
     {
+        Speed = new((int)movement, Speed.Y);
 
-    }
+        if (Position.Y >= 20 && TouchingGrass)
+        {
+            Speed = new(Speed.X, 0);
+            TouchingGrass = true;
+        }
+        else
+        {
+            Speed += new Vector2(0, World.gravity);
 
-    public void Move(Dir direction)
-    {
-        Position = Position + new Vector2((int)direction, 0);
+            if (Position.Y >= 20) { TouchingGrass = true; Position = new(Position.X, 20); }
+        }
+
+        Position += Speed;
+
+        // Do not keep constant speed
+        movement = Dir.None;
+
     }
 
     public void Draw()
@@ -43,6 +61,9 @@ public class Player
 
     public void Jump()
     {
-        Position = Position - new()
+        if (!TouchingGrass) return;
+
+        Speed = new(Speed.X, -10);
+        TouchingGrass = false;
     }
 }

@@ -5,18 +5,15 @@ public class Engine
 {
     Vector2 screenDim;
     Camera2D camera2D;
+
     World world;
-
-    Level levelController = new();
-
     Player p;
-    EnemyController ec;
 
     public Engine()
     {
         world = new();
-        ec = new();
         p = new();
+
         screenDim = new(Raylib.GetScreenWidth(), Raylib.GetScreenHeight());
         camera2D = new(new(screenDim.X / 2, screenDim.Y / 2), p.Position, 0f, 1f);
     }
@@ -32,7 +29,11 @@ public class Engine
 
     private void Logic()
     {
+        // This order gives you a "pushing" effect when moving. 
+        // I think it makes it more immersive
         camera2D.target = p.Position;
+        camera2D.zoom = p.Zoom;
+        p.Move();
     }
 
     private void Controls()
@@ -40,8 +41,8 @@ public class Engine
         KeyboardKey key = (KeyboardKey)Raylib.GetKeyPressed();
 
         if (Raylib.IsKeyDown(KeyboardKey.KEY_W)) p.Jump();
-        if (Raylib.IsKeyDown(KeyboardKey.KEY_A)) p.Move(Dir.Left);
-        if (Raylib.IsKeyDown(KeyboardKey.KEY_D)) p.Move(Dir.Right);
+        if (Raylib.IsKeyDown(KeyboardKey.KEY_A)) p.movement = Dir.Left;
+        if (Raylib.IsKeyDown(KeyboardKey.KEY_D)) p.movement = Dir.Right;
     }
 
     private void Render()
@@ -49,6 +50,7 @@ public class Engine
         InitContext();
 
         p.Draw();
+        world.Render();
 
         EndContext();
     }
@@ -62,11 +64,6 @@ public class Engine
         if (Raylib.IsKeyDown(KeyboardKey.KEY_S)) p.Position = new Vector2(2, 0) + p.Position;
         if (Raylib.IsKeyDown(KeyboardKey.KEY_D)) p.Position = new Vector2(2, 0) + p.Position;
 
-    }
-
-    private void DrawWorld()
-    {
-        world.Render();
     }
 
     private void RenderCharacter()

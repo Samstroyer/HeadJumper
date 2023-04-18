@@ -1,11 +1,11 @@
 using Raylib_cs;
 
-public class Platform
+public class WorldObjects
 {
     public Rectangle R { get; set; }
     public Color C { get; set; } = Color.DARKGREEN;
 
-    public Platform()
+    public WorldObjects()
     {
         R = new Rectangle(-100, 20, 200, 10);
     }

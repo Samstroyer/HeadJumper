@@ -2,21 +2,24 @@ using System;
 
 public class World
 {
-    List<Platform> Platforms;
+    List<WorldObjects> objects;
+    EnemyController ec;
+
+    public static float gravity = 0.5f;
 
     public World()
     {
-        Platforms = new()
+        objects = new()
         {
-            new Platform()
+            new WorldObjects()
         };
     }
 
     public void Render()
     {
-        foreach (Platform p in Platforms)
+        foreach (WorldObjects o in objects)
         {
-            p.Render();
+            o.Render();
         }
     }
 }
