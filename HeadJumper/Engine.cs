@@ -1,7 +1,7 @@
 using System.Numerics;
 using Raylib_cs;
 
-public class Engine
+internal class Engine
 {
     Vector2 screenDim;
     Camera2D camera2D;
@@ -9,7 +9,7 @@ public class Engine
     World world;
     Player p;
 
-    public Engine()
+    internal Engine()
     {
         world = new();
         p = new();
@@ -18,7 +18,7 @@ public class Engine
         camera2D = new(new(screenDim.X / 2, screenDim.Y / 2), p.Position, 0f, 1f);
     }
 
-    public void Run()
+    internal void Run()
     {
         Controls();
 
@@ -43,6 +43,8 @@ public class Engine
         if (Raylib.IsKeyDown(KeyboardKey.KEY_W)) p.Jump();
         if (Raylib.IsKeyDown(KeyboardKey.KEY_A)) p.movement = Dir.Left;
         if (Raylib.IsKeyDown(KeyboardKey.KEY_D)) p.movement = Dir.Right;
+
+        if (Raylib.IsKeyDown(KeyboardKey.KEY_Z)) p.Zooming();
     }
 
     private void Render()

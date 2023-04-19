@@ -1,13 +1,13 @@
 using System;
 
-public class World
+internal class World
 {
     List<WorldObjects> objects;
     EnemyController ec;
 
-    public static float gravity = 0.5f;
+    internal static float gravity = 0.5f;
 
-    public World()
+    internal World()
     {
         objects = new()
         {
@@ -15,7 +15,7 @@ public class World
         };
     }
 
-    public void Render()
+    internal void Render()
     {
         foreach (WorldObjects o in objects)
         {

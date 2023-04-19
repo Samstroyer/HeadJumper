@@ -1,37 +1,37 @@
 using System.Numerics;
 using Raylib_cs;
 
-public enum Dir
+internal enum Dir
 {
     Left = -5,
     Right = 5,
     None = 0
 }
 
-public class Player
+internal class Player
 {
-    public Vector2 Position { get; set; }
-    public Vector2 Size { get; set; } = new(10, 10);
-    public Vector2 Speed { get; set; } = new(0, 0);
+    internal Vector2 Position { get; set; }
+    internal Vector2 Size { get; set; } = new(10, 10);
+    internal Vector2 Speed { get; set; } = new(0, 0);
 
     // Meme
     private bool TouchingGrass = true;
 
-    public float Zoom { get; set; } = 2f;
+    internal float Zoom { get; set; } = 2f;
 
-    public Color C { get; set; } = Color.RED;
+    internal Color C { get; set; } = Color.RED;
 
-    public Dir movement = Dir.None;
+    internal Dir movement = Dir.None;
 
     PowerUpController powerUpController;
 
-    public Player()
+    internal Player()
     {
         Position = new(10, 20);
         powerUpController = new();
     }
 
-    public void Move()
+    internal void Move()
     {
         Speed = new((int)movement, Speed.Y);
 
@@ -54,16 +54,21 @@ public class Player
 
     }
 
-    public void Draw()
+    internal void Draw()
     {
         Raylib.DrawRectangle((int)Position.X, (int)Position.Y, 5, 5, Color.GREEN);
     }
 
-    public void Jump()
+    internal void Jump()
     {
         if (!TouchingGrass) return;
 
         Speed = new(Speed.X, -10);
         TouchingGrass = false;
+    }
+
+    internal void Zooming()
+    {
+        throw new NotImplementedException();
     }
 }

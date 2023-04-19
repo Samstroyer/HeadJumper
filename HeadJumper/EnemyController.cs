@@ -1,16 +1,16 @@
 using Raylib_cs;
 using System;
 
-public class EnemyController
+internal class EnemyController
 {
-    public List<Enemy> Enemies { get; set; } = new();
+    internal List<Enemy> Enemies { get; set; } = new();
 
-    public EnemyController()
+    internal EnemyController()
     {
         Enemies.Add(new SlowEnemy());
     }
 
-    public void DrawEnemies()
+    internal void DrawEnemies()
     {
         foreach (Enemy e in Enemies)
         {

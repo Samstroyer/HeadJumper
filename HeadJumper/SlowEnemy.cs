@@ -1,8 +1,8 @@
 using System;
 
-public class SlowEnemy : Enemy
+internal class SlowEnemy : Enemy
 {
-    public SlowEnemy()
+    internal SlowEnemy()
     {
         Damage = 20;
         Hitpoints = 200;

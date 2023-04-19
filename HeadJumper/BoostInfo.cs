@@ -1,17 +1,17 @@
 using System;
 
-public class BoostInfo
+internal class BoostInfo
 {
-    public string Name { get; set; }
-    public string Info { get; set; }
+    internal string Name { get; set; }
+    internal string Info { get; set; }
 
-    public System.Timers.Timer cooldownTimer;
-    public System.Timers.Timer onTimer;
+    internal System.Timers.Timer cooldownTimer;
+    internal System.Timers.Timer onTimer;
 
-    public bool isActive = false;
-    public bool available = true;
+    internal bool isActive = false;
+    internal bool available = true;
 
-    public BoostInfo(string name, string info, float cooldown, float timeActive)
+    internal BoostInfo(string name, string info, float cooldown, float timeActive)
     {
         Name = name; Info = info; cooldownTimer = new(cooldown); onTimer = new(timeActive);
     }

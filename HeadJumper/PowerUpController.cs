@@ -1,6 +1,6 @@
 using System;
 
-public class PowerUpController
+internal class PowerUpController
 {
     List<BoostInfo> Boosts = new()
     {
