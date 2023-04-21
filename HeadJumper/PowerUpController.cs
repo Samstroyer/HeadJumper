@@ -12,7 +12,8 @@ static internal class PowerUpController
 {
     internal static Dictionary<PowerUps, BoostInfo> boosts = new()
     {
-        { PowerUps.Speed, new("Speed Boost", "Gives the player speed for a set amount of time", 10000, 5000, KeyboardKey.KEY_ONE) {boostTexture = Raylib.LoadTexture("sprites/JumpBoost.png")} }
+        { PowerUps.Speed, new("Speed Boost", "Gives the player speed for a set amount of time", 10000, 5000, KeyboardKey.KEY_ONE) {boostTexture = Raylib.LoadTexture("sprites/SpeedBoost.png")} },
+        { PowerUps.Jump, new("Jump Boost", "Gives the player jump boost for a set amount of time", 5000, 5000, KeyboardKey.KEY_TWO) {boostTexture = Raylib.LoadTexture("sprites/JumpBoost.png")} },
 
     };
 
@@ -26,7 +27,7 @@ static internal class PowerUpController
 
     internal static void RenderBoostSymbols()
     {
-        int spacing = 50;
+        int spacing = 70;
         int xPos = 10;
         int counter = 1;
 
