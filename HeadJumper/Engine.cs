@@ -32,8 +32,6 @@ internal class Engine
         camera2D.target = p.Position + p.CameraMovementLerp();
         camera2D.zoom = p.Zoom;
 
-        p.Move();
-
         World.CheckEnemyHits(new(p.Position.X, p.Position.Y, p.Size.X, p.Size.Y));
     }
 
@@ -42,8 +40,10 @@ internal class Engine
         KeyboardKey key = (KeyboardKey)Raylib.GetKeyPressed();
 
         if (Raylib.IsKeyDown(KeyboardKey.KEY_W) || Raylib.IsKeyDown(KeyboardKey.KEY_SPACE)) p.Jump();
+
         if (Raylib.IsKeyDown(KeyboardKey.KEY_A)) p.movement = Dir.Left;
-        if (Raylib.IsKeyDown(KeyboardKey.KEY_D)) p.movement = Dir.Right;
+        else if (Raylib.IsKeyDown(KeyboardKey.KEY_D)) p.movement = Dir.Right;
+        else p.movement = Dir.None;
 
         if (Raylib.IsKeyDown(KeyboardKey.KEY_Z)) p.Zooming(true);
         else p.Zooming(false);
@@ -56,7 +56,7 @@ internal class Engine
         InitContext();
 
         // Player stuff
-        p.Draw();
+        p.MoveAndRender();
 
         // World and enemies
         World.Render();

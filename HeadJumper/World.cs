@@ -6,10 +6,10 @@ static internal class World
 {
     static internal List<WorldObject> objects = new()
     {
-        new WorldObject(new(-100, 30, 500, 10)),
-        new WorldObject(new(-600, 50, 500, 10)),
-        new WorldObject(new(500, 30, 500, 10)),
-        new WorldObject(new(900, 50, 500, 10)),
+        new WorldObject(new(-100, 30, 500, 30)),
+        new WorldObject(new(-600, 50, 500, 30)),
+        new WorldObject(new(500, 30, 500, 30)),
+        new WorldObject(new(900, 50, 500, 30)),
     };
     static internal EnemyController ec = new();
 

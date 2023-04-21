@@ -1,4 +1,5 @@
 using System.Numerics;
+using System.Timers;
 using Raylib_cs;
 
 internal enum Dir
@@ -11,8 +12,16 @@ internal enum Dir
 internal class Player
 {
     internal Vector2 Position { get; set; }
-    internal Vector2 Size { get; set; } = new(10, 10);
+    internal Vector2 Size { get; set; } = new(40, 40);
     internal Vector2 Speed = new(0, 0);
+
+    private int textureNumber = 0;
+    private Texture2D spriteSheet = Raylib.LoadTexture("Sprites/PlayerSpriteSheet.png");
+    private System.Timers.Timer spriteTimer = new(200)
+    {
+        AutoReset = true,
+        Enabled = true,
+    };
 
     // Meme
     private bool TouchingGrass = true;
@@ -29,9 +38,10 @@ internal class Player
     internal Player()
     {
         Position = new(10, 20);
+        spriteTimer.Elapsed += ChangeSprite;
     }
 
-    internal void Move()
+    internal void MoveAndRender()
     {
         if (PowerUpController.boosts[PowerUps.Speed].isActive) Speed = new((int)movement * 2, Speed.Y);
         else Speed = new((int)movement, Speed.Y);
@@ -49,14 +59,37 @@ internal class Player
 
         Position += Speed;
 
-        // Do not keep constant speed
-        movement = Dir.None;
-
+        Draw();
     }
 
-    internal void Draw()
+    private void ChangeSprite(Object source, ElapsedEventArgs e)
     {
-        Raylib.DrawRectangle((int)Position.X, (int)Position.Y, (int)Size.X, (int)Size.Y, Color.GREEN);
+        textureNumber++;
+        if (textureNumber > 3) textureNumber = 0;
+    }
+
+    private void Draw()
+    {
+        int spriteHeight = 0;
+
+        switch (movement)
+        {
+            case Dir.Right:
+                spriteHeight = 0;
+                break;
+            case Dir.Left:
+                spriteHeight = 1;
+                break;
+            case Dir.None:
+                spriteHeight = 3;
+                break;
+        }
+
+        if (!TouchingGrass) spriteHeight = 2;
+
+        Rectangle playerRec = new((int)Position.X, (int)Position.Y, (int)Size.X, (int)Size.Y);
+        Raylib.DrawTexturePro(spriteSheet, new(textureNumber * 40, spriteHeight * 40, 40, 40), playerRec, new(0, 0), 0f, Color.WHITE);
+        // Raylib.DrawRectangleRec(playerRec, new(100, 100, 100, 100));
     }
 
     internal void Jump()
