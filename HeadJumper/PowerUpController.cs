@@ -5,10 +5,18 @@ static internal class PowerUpController
 {
     internal static List<BoostInfo> boosts = new()
     {
-        new("Speed Boost", "Gives the player speed for a set amount of time", 10000, 5000) {boostTexture = Raylib.LoadTexture("sprites/JumpBoost.png")},
+        new("Speed Boost", "Gives the player speed for a set amount of time", 10000, 5000, KeyboardKey.KEY_ONE) {boostTexture = Raylib.LoadTexture("sprites/JumpBoost.png")},
         // new("Speed Boost", "Gives the player speed for a set amount of time", 10000, 5000) {boostTexture = Raylib.LoadTexture("sprites/JumpBoost.png")},
         // new("Speed Boost", "Gives the player speed for a set amount of time", 10000, 5000) {boostTexture = Raylib.LoadTexture("sprites/JumpBoost.png")},
     };
+
+    internal static void Activate(KeyboardKey key)
+    {
+        foreach (var b in boosts)
+        {
+            if (b.trigger == key) b.TryActivate();
+        }
+    }
 
     internal static void RenderBoostSymbols()
     {

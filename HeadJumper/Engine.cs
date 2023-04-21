@@ -68,6 +68,8 @@ internal class Engine
         if (key == KeyboardKey.KEY_W || key == KeyboardKey.KEY_SPACE) p.Jump();
         if (Raylib.IsKeyDown(KeyboardKey.KEY_A)) p.movement = Dir.Left;
         if (Raylib.IsKeyDown(KeyboardKey.KEY_D)) p.movement = Dir.Right;
+
+        PowerUpController.Activate(key);
     }
 
     private void RenderCharacter()
