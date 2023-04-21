@@ -12,12 +12,15 @@ internal class Player
 {
     internal Vector2 Position { get; set; }
     internal Vector2 Size { get; set; } = new(10, 10);
-    internal Vector2 Speed { get; set; } = new(0, 0);
+    internal Vector2 Speed = new(0, 0);
 
     // Meme
     private bool TouchingGrass = true;
 
     internal float Zoom { get; set; } = 2f;
+
+    private Vector2 zoomMinMax = new(2f, 0.5f);
+    private float cameraLerp = 0;
 
     internal Color C { get; set; } = Color.RED;
 
@@ -35,16 +38,15 @@ internal class Player
     {
         Speed = new((int)movement, Speed.Y);
 
-        if (Position.Y >= 20 && TouchingGrass)
-        {
-            Speed = new(Speed.X, 0);
-            TouchingGrass = true;
-        }
-        else
-        {
-            Speed += new Vector2(0, World.gravity);
+        if (!TouchingGrass || World.ShouldFall(Position, Size)) { Speed.Y += World.gravity; }
 
-            if (Position.Y >= 20) { TouchingGrass = true; Position = new(Position.X, 20); }
+
+        var results = World.Colliding(Position, Size);
+        if (results.Item1)
+        {
+            Speed.Y = 0;
+            Position = new(Position.X, results.Item2 - Size.Y);
+            TouchingGrass = true;
         }
 
         Position += Speed;
@@ -56,7 +58,7 @@ internal class Player
 
     internal void Draw()
     {
-        Raylib.DrawRectangle((int)Position.X, (int)Position.Y, 5, 5, Color.GREEN);
+        Raylib.DrawRectangle((int)Position.X, (int)Position.Y, (int)Size.X, (int)Size.Y, Color.GREEN);
     }
 
     internal void Jump()
@@ -67,8 +69,17 @@ internal class Player
         TouchingGrass = false;
     }
 
-    internal void Zooming()
+    internal void Zooming(bool zoomingOut)
     {
-        throw new NotImplementedException();
+        if (zoomingOut) Zoom = Raymath.Lerp(Zoom, zoomMinMax.Y, 0.1f);
+        else Zoom = Raymath.Lerp(Zoom, zoomMinMax.X, 0.1f);
+    }
+
+    internal Vector2 CameraMovementLerp()
+    {
+        if (movement == Dir.None) { cameraLerp = Raymath.Lerp(cameraLerp, 0, 0.1f); }
+        else cameraLerp = Raymath.Lerp(cameraLerp, (int)movement * 6, 0.1f);
+
+        return new(cameraLerp, 0);
     }
 }

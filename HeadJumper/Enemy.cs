@@ -7,9 +7,10 @@ internal abstract class Enemy
     internal int Damage { get; set; }
     internal int Hitpoints { get; set; }
     internal Vector2 Position { get; set; }
+    internal Vector2 Size { get; set; } = new(10, 10);
 
     internal virtual void Draw()
     {
-        Raylib.DrawRectangle((int)Position.X - 5, (int)Position.Y - 10, 10, 10, Color.RED);
+        Raylib.DrawRectangle((int)Position.X, (int)Position.Y, (int)Size.X, (int)Size.Y, Color.RED);
     }
 }

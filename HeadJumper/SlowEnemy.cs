@@ -7,5 +7,6 @@ internal class SlowEnemy : Enemy
         Damage = 20;
         Hitpoints = 200;
         Speed = 2;
+        Size = new(10, 10);
     }
 }

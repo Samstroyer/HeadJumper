@@ -6,12 +6,10 @@ internal class Engine
     Vector2 screenDim;
     Camera2D camera2D;
 
-    World world;
     Player p;
 
     internal Engine()
     {
-        world = new();
         p = new();
 
         screenDim = new(Raylib.GetScreenWidth(), Raylib.GetScreenHeight());
@@ -31,8 +29,9 @@ internal class Engine
     {
         // This order gives you a "pushing" effect when moving. 
         // I think it makes it more immersive
-        camera2D.target = p.Position;
+        camera2D.target = p.Position + p.CameraMovementLerp();
         camera2D.zoom = p.Zoom;
+
         p.Move();
     }
 
@@ -44,7 +43,8 @@ internal class Engine
         if (Raylib.IsKeyDown(KeyboardKey.KEY_A)) p.movement = Dir.Left;
         if (Raylib.IsKeyDown(KeyboardKey.KEY_D)) p.movement = Dir.Right;
 
-        if (Raylib.IsKeyDown(KeyboardKey.KEY_Z)) p.Zooming();
+        if (Raylib.IsKeyDown(KeyboardKey.KEY_Z)) p.Zooming(true);
+        else p.Zooming(false);
     }
 
     private void Render()
@@ -52,7 +52,8 @@ internal class Engine
         InitContext();
 
         p.Draw();
-        world.Render();
+        World.Render();
+        World.ec.DrawEnemies();
 
         EndContext();
     }

@@ -1,13 +1,13 @@
 using Raylib_cs;
 
-internal class WorldObjects
+internal class WorldObject
 {
     internal Rectangle R { get; set; }
     internal Color C { get; set; } = Color.DARKGREEN;
 
-    internal WorldObjects()
+    internal WorldObject(Rectangle r)
     {
-        R = new Rectangle(-100, 20, 200, 10);
+        R = r;
     }
 
     internal void Render()

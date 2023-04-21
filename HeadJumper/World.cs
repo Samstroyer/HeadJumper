@@ -1,25 +1,53 @@
+using System.Numerics;
+using Raylib_cs;
 using System;
 
-internal class World
+static internal class World
 {
-    List<WorldObjects> objects;
-    EnemyController ec;
+    static internal List<WorldObject> objects = new()
+    {
+        new WorldObject(new(-100, 30, 500, 10)),
+        new WorldObject(new(-600, 50, 500, 10)),
+        new WorldObject(new(500, 30, 500, 10)),
+        new WorldObject(new(900, 50, 500, 10)),
+    };
+    static internal EnemyController ec = new();
 
     internal static float gravity = 0.5f;
 
-    internal World()
-    {
-        objects = new()
-        {
-            new WorldObjects()
-        };
-    }
 
-    internal void Render()
+    internal static void Render()
     {
-        foreach (WorldObjects o in objects)
+        foreach (WorldObject o in objects)
         {
             o.Render();
         }
+    }
+
+    internal static (bool, int) Colliding(Vector2 position, Vector2 size)
+    {
+        Rectangle player = new(position.X, position.Y, size.X, size.Y);
+
+        foreach (var obj in objects)
+        {
+            if (Raylib.CheckCollisionRecs(obj.R, player))
+            {
+                return (true, (int)obj.R.y);
+            }
+        }
+
+        return (false, 0);
+    }
+
+    internal static bool ShouldFall(Vector2 position, Vector2 size)
+    {
+        Rectangle player = new(position.X, position.Y, size.X, size.Y + 1); // +1 so that it checksbelow and not on 
+
+        foreach (var obj in objects)
+        {
+            if (Raylib.CheckCollisionRecs(obj.R, player)) return false;
+        }
+
+        return true;
     }
 }
