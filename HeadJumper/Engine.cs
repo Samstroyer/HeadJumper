@@ -51,7 +51,10 @@ internal class Engine
     {
         InitContext();
 
+        // Player stuff
         p.Draw();
+
+        // World and enemies
         World.Render();
         World.ec.DrawEnemies();
 
@@ -62,11 +65,9 @@ internal class Engine
     {
         KeyboardKey key = (KeyboardKey)Raylib.GetKeyPressed();
 
-        if (key == KeyboardKey.KEY_W) p.Jump();
-        if (Raylib.IsKeyDown(KeyboardKey.KEY_A)) p.Position = new Vector2(2, 0) + p.Position;
-        if (Raylib.IsKeyDown(KeyboardKey.KEY_S)) p.Position = new Vector2(2, 0) + p.Position;
-        if (Raylib.IsKeyDown(KeyboardKey.KEY_D)) p.Position = new Vector2(2, 0) + p.Position;
-
+        if (key == KeyboardKey.KEY_W || key == KeyboardKey.KEY_SPACE) p.Jump();
+        if (Raylib.IsKeyDown(KeyboardKey.KEY_A)) p.movement = Dir.Left;
+        if (Raylib.IsKeyDown(KeyboardKey.KEY_D)) p.movement = Dir.Right;
     }
 
     private void RenderCharacter()
@@ -84,6 +85,7 @@ internal class Engine
     private void EndContext()
     {
         Raylib.EndMode2D();
+        PowerUpController.RenderBoostSymbols();
         Raylib.EndDrawing();
     }
 }

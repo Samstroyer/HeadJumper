@@ -26,12 +26,9 @@ internal class Player
 
     internal Dir movement = Dir.None;
 
-    PowerUpController powerUpController;
-
     internal Player()
     {
         Position = new(10, 20);
-        powerUpController = new();
     }
 
     internal void Move()
@@ -81,5 +78,10 @@ internal class Player
         else cameraLerp = Raymath.Lerp(cameraLerp, (int)movement * 6, 0.1f);
 
         return new(cameraLerp, 0);
+    }
+
+    internal void Powers()
+    {
+
     }
 }

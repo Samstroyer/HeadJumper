@@ -1,4 +1,4 @@
-using System;
+using Raylib_cs;
 
 internal class BoostInfo
 {
@@ -10,6 +10,8 @@ internal class BoostInfo
 
     internal bool isActive = false;
     internal bool available = true;
+
+    internal Texture2D boostTexture;
 
     internal BoostInfo(string name, string info, float cooldown, float timeActive)
     {
