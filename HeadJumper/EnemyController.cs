@@ -17,7 +17,7 @@ internal class EnemyController
     {
         foreach (Enemy e in enemies)
         {
-            e.Draw();
+            e.UpdateAndDraw();
         }
     }
 }

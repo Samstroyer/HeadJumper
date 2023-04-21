@@ -33,7 +33,8 @@ internal class Player
 
     internal void Move()
     {
-        Speed = new((int)movement, Speed.Y);
+        if (PowerUpController.boosts[PowerUps.Speed].isActive) Speed = new((int)movement * 2, Speed.Y);
+        else Speed = new((int)movement, Speed.Y);
 
         if (!TouchingGrass || World.ShouldFall(Position, Size)) { Speed.Y += World.gravity; }
 

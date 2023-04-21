@@ -33,18 +33,22 @@ internal class Engine
         camera2D.zoom = p.Zoom;
 
         p.Move();
+
+        World.CheckEnemyHits(new(p.Position.X, p.Position.Y, p.Size.X, p.Size.Y));
     }
 
     private void Controls()
     {
         KeyboardKey key = (KeyboardKey)Raylib.GetKeyPressed();
 
-        if (Raylib.IsKeyDown(KeyboardKey.KEY_W)) p.Jump();
+        if (Raylib.IsKeyDown(KeyboardKey.KEY_W) || Raylib.IsKeyDown(KeyboardKey.KEY_SPACE)) p.Jump();
         if (Raylib.IsKeyDown(KeyboardKey.KEY_A)) p.movement = Dir.Left;
         if (Raylib.IsKeyDown(KeyboardKey.KEY_D)) p.movement = Dir.Right;
 
         if (Raylib.IsKeyDown(KeyboardKey.KEY_Z)) p.Zooming(true);
         else p.Zooming(false);
+
+        PowerUpController.Activate(key);
     }
 
     private void Render()
@@ -61,22 +65,12 @@ internal class Engine
         EndContext();
     }
 
-    private void KeyBinds()
-    {
-        KeyboardKey key = (KeyboardKey)Raylib.GetKeyPressed();
-
-        if (key == KeyboardKey.KEY_W || key == KeyboardKey.KEY_SPACE) p.Jump();
-        if (Raylib.IsKeyDown(KeyboardKey.KEY_A)) p.movement = Dir.Left;
-        if (Raylib.IsKeyDown(KeyboardKey.KEY_D)) p.movement = Dir.Right;
-
-        PowerUpController.Activate(key);
-    }
-
     private void RenderCharacter()
     {
         Raylib.DrawRectangle((int)p.Position.X, (int)p.Position.Y, (int)p.Size.X, (int)p.Size.Y, p.C);
     }
 
+    #region Context init and end
     private void InitContext()
     {
         Raylib.BeginDrawing();
@@ -90,4 +84,5 @@ internal class Engine
         PowerUpController.RenderBoostSymbols();
         Raylib.EndDrawing();
     }
+    #endregion 
 }

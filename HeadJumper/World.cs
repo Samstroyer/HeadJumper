@@ -50,4 +50,15 @@ static internal class World
 
         return true;
     }
+
+    internal static void CheckEnemyHits(Rectangle player)
+    {
+        for (int i = ec.enemies.Count - 1; i >= 0; i--)
+        {
+            if (Raylib.CheckCollisionRecs(player, ec.enemies[i].GetHitbox()))
+            {
+                ec.enemies.RemoveAt(i);
+            }
+        }
+    }
 }

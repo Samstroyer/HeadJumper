@@ -6,6 +6,8 @@ internal class BoostInfo
     internal string Name { get; set; }
     internal string Info { get; set; }
 
+    internal DateTime lastEventTime;
+
     internal System.Timers.Timer cooldownTimer;
     internal System.Timers.Timer activeTimer;
 
@@ -20,8 +22,12 @@ internal class BoostInfo
     {
         Name = name; Info = info; cooldownTimer = new(cooldown); activeTimer = new(timeActive); trigger = activationKey;
 
-        cooldownTimer.Elapsed += CooldownEvent;
-        activeTimer.Elapsed += ActiveEvent;
+        activeTimer.AutoReset = false;
+        cooldownTimer.AutoReset = false;
+
+        cooldownTimer.Elapsed += CooldownEnd;
+        activeTimer.Elapsed += ActiveEnd;
+
     }
 
     internal void TryActivate()
@@ -35,20 +41,19 @@ internal class BoostInfo
     private void Activate()
     {
         isActive = true; available = false;
-
         activeTimer.Start();
-        
+        lastEventTime = DateTime.Now.AddSeconds(activeTimer.Interval / 1000);
+    }
 
+    private void ActiveEnd(Object source, ElapsedEventArgs e)
+    {
         cooldownTimer.Start();
+        isActive = false;
+        lastEventTime = DateTime.Now.AddSeconds(cooldownTimer.Interval / 1000);
     }
 
-    private void ActiveEvent(Object source, ElapsedEventArgs e)
+    private void CooldownEnd(Object source, ElapsedEventArgs e)
     {
-
-    }
-
-    private void CooldownEvent(Object source, ElapsedEventArgs e)
-    {
-
+        available = true;
     }
 }
