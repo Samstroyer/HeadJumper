@@ -13,7 +13,7 @@ internal class Engine
         p = new();
 
         screenDim = new(Raylib.GetScreenWidth(), Raylib.GetScreenHeight());
-        camera2D = new(new(screenDim.X / 2, screenDim.Y / 2), p.Position, 0f, 1f);
+        camera2D = new(new(screenDim.X / 2, screenDim.Y / 2), Player.Position, 0f, 1f);
     }
 
     internal void Run()
@@ -29,10 +29,10 @@ internal class Engine
     {
         // This order gives you a "pushing" effect when moving. 
         // I think it makes it more immersive
-        camera2D.target = p.Position + p.CameraMovementLerp();
+        camera2D.target = Player.Position + p.CameraMovementLerp();
         camera2D.zoom = p.Zoom;
 
-        World.CheckEnemyHits(new(p.Position.X, p.Position.Y, p.Size.X, p.Size.Y));
+        World.CheckEnemyHits(new(Player.Position.X, Player.Position.Y, p.Size.X, p.Size.Y));
     }
 
     private void Controls()
@@ -67,7 +67,7 @@ internal class Engine
 
     private void RenderCharacter()
     {
-        Raylib.DrawRectangle((int)p.Position.X, (int)p.Position.Y, (int)p.Size.X, (int)p.Size.Y, p.C);
+        Raylib.DrawRectangle((int)Player.Position.X, (int)Player.Position.Y, (int)p.Size.X, (int)p.Size.Y, p.C);
     }
 
     #region Context init and end

@@ -11,7 +11,7 @@ internal enum Dir
 
 internal class Player
 {
-    internal Vector2 Position { get; set; }
+    internal static Vector2 Position { get; set; }
     internal Vector2 Size { get; set; } = new(40, 40);
     internal Vector2 Speed = new(0, 0);
 
@@ -111,7 +111,7 @@ internal class Player
     internal Vector2 CameraMovementLerp()
     {
         if (movement == Dir.None) { cameraLerp = Raymath.Lerp(cameraLerp, 0, 0.1f); }
-        else cameraLerp = Raymath.Lerp(cameraLerp, (int)movement * 6, 0.1f);
+        else cameraLerp = Raymath.Lerp(cameraLerp, (int)movement * 8, 0.1f);
 
         return new(cameraLerp, 0);
     }
