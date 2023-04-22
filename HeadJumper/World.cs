@@ -11,7 +11,9 @@ static internal class World
         new WorldObject(new(500, 30, 500, 30)),
         new WorldObject(new(900, 50, 500, 30)),
     };
+
     static internal EnemyController ec = new();
+    static internal CollectibleController cc = new();
 
     internal static float gravity = 0.5f;
 

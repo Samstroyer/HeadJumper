@@ -64,6 +64,7 @@ internal class Engine
         // World and enemies
         World.Render();
         World.ec.DrawEnemies();
+        World.cc.DrawCollectibles();
 
 
         EndContext();
