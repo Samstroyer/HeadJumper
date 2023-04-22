@@ -142,12 +142,16 @@ internal class Player
 
     private static void DrawCoinStats()
     {
-        Raylib.DrawTexture(ImageLib.Coin, 700, 10, Color.WHITE);
+        Raylib.DrawTexture(ImageLib.Coin, 800, 10, Color.WHITE);
+
+        int width = Raylib.MeasureText($"{coins}", 20);
+        Raylib.DrawText($"{coins}", 820 - width / 2, 22, 20, Color.BLACK);
     }
 
     private static void DrawHPStats()
     {
         Raylib.DrawTexture(ImageLib.Heart, 600, 10, Color.WHITE);
+        Raylib.DrawText($"HP:{hitPoints}", 600, 55, 20, Color.BLACK);
 
         // Calculate height of HP bar (with percentage)
         float hpPercentage = hitPoints / maxHealth;
