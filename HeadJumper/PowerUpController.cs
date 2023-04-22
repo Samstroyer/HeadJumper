@@ -10,6 +10,8 @@ internal enum PowerUps
 
 static internal class PowerUpController
 {
+    static Color TransparentGray = new(100, 100, 100, 100);
+
     internal static Dictionary<PowerUps, BoostInfo> boosts = new()
     {
         { PowerUps.Speed, new("Speed Boost", "Gives the player speed for a set amount of time", 10000, 5000, KeyboardKey.KEY_ONE) {boostTexture = Raylib.LoadTexture("sprites/SpeedBoost.png")} },
@@ -34,7 +36,9 @@ static internal class PowerUpController
 
         foreach (var b in boosts)
         {
-            Raylib.DrawTexture(b.Value.boostTexture, xPos, 10, Color.WHITE);
+            Raylib.DrawRectangle(xPos, 10, 40, 40, TransparentGray);
+            Texture2D boostTexture = b.Value.GetTexture();
+            Raylib.DrawTexture(boostTexture, xPos, 10, Color.WHITE);
 
             if (b.Value.available)
             {

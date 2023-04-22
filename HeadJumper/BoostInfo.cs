@@ -30,7 +30,7 @@ internal class BoostInfo
 
     }
 
-    internal void TryActivate()
+    internal virtual void TryActivate()
     {
         if (!available) return;
         if (isActive) return;
@@ -56,4 +56,13 @@ internal class BoostInfo
     {
         available = true;
     }
+
+    internal virtual void Update() { }
+
+    internal virtual Texture2D GetTexture()
+    {
+        return boostTexture;
+    }
+
+    internal virtual void ChangeDirection() { }
 }

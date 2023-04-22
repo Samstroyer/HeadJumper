@@ -49,6 +49,8 @@ internal class Engine
         else p.Zooming(false);
 
         PowerUpController.Activate(key);
+
+        if (key == KeyboardKey.KEY_UP || key == KeyboardKey.KEY_DOWN) PowerUpController.boosts[PowerUps.Projectile].ChangeDirection();
     }
 
     private void Render()
@@ -57,10 +59,12 @@ internal class Engine
 
         // Player stuff
         p.MoveAndRender();
+        PowerUpController.boosts[PowerUps.Projectile].Update();
 
         // World and enemies
         World.Render();
         World.ec.DrawEnemies();
+
 
         EndContext();
     }

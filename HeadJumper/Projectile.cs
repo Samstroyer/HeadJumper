@@ -5,19 +5,69 @@ using Raylib_cs;
 
 internal class Projectile : BoostInfo
 {
-    internal int speed = 1;
+    internal int speed;
     internal Vector2 position;
+    internal static Direction shootingDir = Direction.right;
+    private Rectangle r;
+
+    static Texture2D leftTexture = Raylib.LoadTexture("Sprites/ProjectileFlipped.png");
 
     internal enum Direction
     {
-        left = -1,
-        right = 1
+        left = -3,
+        right = 3
     }
 
-    internal Projectile(string name, string info, float cooldown, float timeActive, KeyboardKey activationKey) : base(name, info, cooldown, timeActive, activationKey)
+    internal Projectile(string name, string info, float cooldown, float timeActive, KeyboardKey activationKey) : base(name, info, cooldown, timeActive, activationKey) { }
+
+    internal override void Update()
     {
+        if (!isActive) return;
+        position.X += speed;
 
+        r = new(position.X, position.Y, 40, 40);
+        Render();
     }
 
+    internal override void TryActivate()
+    {
+        if (!available) return;
+        if (isActive) return;
 
+        Shoot();
+    }
+
+    private void Shoot()
+    {
+        isActive = true; available = false;
+        activeTimer.Start();
+        lastEventTime = DateTime.Now.AddSeconds(activeTimer.Interval / 1000);
+
+        speed = (int)shootingDir;
+        position = Player.Position;
+    }
+
+    internal static void ChangeDir()
+    {
+        if (shootingDir == Direction.left) shootingDir = Direction.right;
+        else shootingDir = Direction.left;
+    }
+
+    private void Render()
+    {
+        if (speed > 0) Raylib.DrawTexturePro(boostTexture, new(0, 0, 40, 40), r, new(20, 20), 0f, Color.WHITE);
+        else Raylib.DrawTexturePro(leftTexture, new(0, 0, 40, 40), r, new(20, 20), 0f, Color.WHITE);
+    }
+
+    internal override Texture2D GetTexture()
+    {
+        if (shootingDir == Direction.right) return boostTexture;
+        else return leftTexture;
+    }
+
+    internal override void ChangeDirection()
+    {
+        if (shootingDir == Direction.left) shootingDir = Direction.right;
+        else shootingDir = Direction.left;
+    }
 }
