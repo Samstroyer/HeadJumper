@@ -24,6 +24,7 @@ internal class CollectibleController
             {
                 Potion potion = (Potion)c;
                 potion.Render();
+                if (potion.Colliding()) Player.Heal();
             }
             else if (c is Coin)
             {

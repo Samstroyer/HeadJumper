@@ -11,6 +11,8 @@ internal enum Dir
 
 internal class Player
 {
+    internal static readonly float maxHealth = 100;
+    internal static float hitPoints = maxHealth;
     internal static Vector2 Position { get; set; }
 
     internal static Rectangle Hitbox
@@ -49,6 +51,12 @@ internal class Player
     {
         Position = new(10, 20);
         spriteTimer.Elapsed += ChangeSprite;
+    }
+
+    internal static void Heal()
+    {
+        hitPoints += 20;
+        if (hitPoints > maxHealth) hitPoints = maxHealth;
     }
 
     internal void MoveAndRender()
@@ -128,8 +136,24 @@ internal class Player
 
     internal static void DrawStats()
     {
+        DrawHPStats();
+        DrawCoinStats();
+    }
+
+    private static void DrawCoinStats()
+    {
+        Raylib.DrawTexture(ImageLib.Coin, 700, 10, Color.WHITE);
+    }
+
+    private static void DrawHPStats()
+    {
         Raylib.DrawTexture(ImageLib.Heart, 600, 10, Color.WHITE);
 
-        Raylib.DrawTexture(ImageLib.Coin, 700, 10, Color.WHITE);
+        // Calculate height of HP bar (with percentage)
+        float hpPercentage = hitPoints / maxHealth;
+        Rectangle hpBar = new(650, 10 + ((1 - hpPercentage) * 40), 10, hpPercentage * 40);
+
+        Raylib.DrawRectangle(650, 10, 10, 40, Color.GRAY);
+        Raylib.DrawRectangleRec(hpBar, Color.RED);
     }
 }
