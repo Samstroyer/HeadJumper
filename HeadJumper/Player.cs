@@ -13,7 +13,7 @@ internal class Player
 {
     internal static readonly float maxHealth = 100;
     internal static float hitPoints = maxHealth;
-    internal static Vector2 Position { get; set; }
+    internal static Vector2 Position;
 
     internal static Rectangle Hitbox
     {
@@ -49,7 +49,7 @@ internal class Player
 
     internal Player()
     {
-        Position = new(10, 20);
+        Position = new(0, 0);
         spriteTimer.Elapsed += ChangeSprite;
     }
 
@@ -76,6 +76,8 @@ internal class Player
         }
 
         Position += Speed;
+
+        if (Position.X < -600) Position.X = -600;
 
         Draw();
     }

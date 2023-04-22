@@ -9,8 +9,8 @@ internal class EnemyController
     {
         enemies = new()
         {
-            new SlowEnemy() { Position = new(100, 10) },
-            new SlowEnemy() { Position = new(-100, 10) }
+            new StationaryEnemy() { Position = new(100, 10) },
+            new StationaryEnemy() { Position = new(-100, 10) }
         };
     }
 
