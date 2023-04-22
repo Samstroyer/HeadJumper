@@ -18,7 +18,7 @@ internal class Projectile : BoostInfo
         right = 3
     }
 
-    internal Projectile(string name, string info, float cooldown, float timeActive, KeyboardKey activationKey) : base(name, info, cooldown, timeActive, activationKey) { }
+    internal Projectile(string name, string info, float cooldown, float timeActive, KeyboardKey activationKey) : base(name, info, cooldown, timeActive, activationKey, Color.BLANK) { }
 
     internal override void Update()
     {

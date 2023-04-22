@@ -14,9 +14,9 @@ static internal class PowerUpController
 
     internal static Dictionary<PowerUps, BoostInfo> boosts = new()
     {
-        { PowerUps.Speed, new("Speed Boost", "Gives the player speed for a set amount of time", 10000, 5000, KeyboardKey.KEY_ONE) {boostTexture = Raylib.LoadTexture("sprites/SpeedBoost.png")} },
-        { PowerUps.Jump, new("Jump Boost", "Gives the player jump boost for a set amount of time", 5000, 5000, KeyboardKey.KEY_TWO) {boostTexture = Raylib.LoadTexture("sprites/JumpBoost.png")} },
-        { PowerUps.Projectile, new Projectile("Projectile", "Shoots a projectile that kills all enemies in its path. Travels only for 3 seconds", 15000, 3000, KeyboardKey.KEY_THREE) {boostTexture = Raylib.LoadTexture("sprites/Projectile.png")} },
+        { PowerUps.Speed, new("Speed Boost", "Gives the player speed for a set amount of time", 10000, 5000, KeyboardKey.KEY_ONE, Color.BLUE) { boostTexture = Raylib.LoadTexture("sprites/SpeedBoost.png") } },
+        { PowerUps.Jump, new("Jump Boost", "Gives the player jump boost for a set amount of time", 5000, 5000, KeyboardKey.KEY_TWO, Color.GREEN) { boostTexture = Raylib.LoadTexture("sprites/JumpBoost.png") } },
+        { PowerUps.Projectile, new Projectile("Projectile", "Shoots a projectile that kills all enemies in its path. Travels only for 3 seconds", 15000, 3000, KeyboardKey.KEY_THREE) { boostTexture = Raylib.LoadTexture("sprites/Projectile.png") } },
 
     };
 
@@ -25,6 +25,15 @@ static internal class PowerUpController
         foreach (var b in boosts)
         {
             if (b.Value.trigger == key) b.Value.TryActivate();
+        }
+    }
+
+    internal static void DrawParticles()
+    {
+        foreach (var b in boosts)
+        {
+            if (!b.Value.isActive) continue;
+            b.Value.ps.RenderParticles();
         }
     }
 

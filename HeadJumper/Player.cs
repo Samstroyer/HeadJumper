@@ -106,7 +106,7 @@ internal class Player
     {
         if (!TouchingGrass) return;
 
-        if (PowerUpController.boosts[PowerUps.Jump].isActive) Speed = new(Speed.X, -10f * 1.2f);
+        if (PowerUpController.boosts[PowerUps.Jump].isActive) Speed = new(Speed.X, -10f * 1.3f);
         else Speed = new(Speed.X, -10);
 
         TouchingGrass = false;

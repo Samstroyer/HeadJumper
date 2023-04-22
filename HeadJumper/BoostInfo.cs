@@ -3,6 +3,8 @@ using Raylib_cs;
 
 internal class BoostInfo
 {
+    internal ParticleSystem ps;
+
     internal string Name { get; set; }
     internal string Info { get; set; }
 
@@ -18,16 +20,16 @@ internal class BoostInfo
 
     internal KeyboardKey trigger;
 
-    internal BoostInfo(string name, string info, float cooldown, float timeActive, KeyboardKey activationKey)
+    internal BoostInfo(string name, string info, float cooldown, float timeActive, KeyboardKey activationKey, Color particleColor)
     {
         Name = name; Info = info; cooldownTimer = new(cooldown); activeTimer = new(timeActive); trigger = activationKey;
+        ps = new(particleColor);
 
         activeTimer.AutoReset = false;
         cooldownTimer.AutoReset = false;
 
         cooldownTimer.Elapsed += CooldownEnd;
         activeTimer.Elapsed += ActiveEnd;
-
     }
 
     internal virtual void TryActivate()

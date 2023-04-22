@@ -61,6 +61,7 @@ internal class Engine
         // Player stuff
         p.MoveAndRender();
         PowerUpController.boosts[PowerUps.Projectile].Update();
+        PowerUpController.DrawParticles();
 
         // World and enemies
         World.Render();
