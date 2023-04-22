@@ -12,6 +12,15 @@ internal enum Dir
 internal class Player
 {
     internal static Vector2 Position { get; set; }
+
+    internal static Rectangle Hitbox
+    {
+        get
+        {
+            return new Rectangle(Position.X, Position.Y, 40, 40);
+        }
+    }
+
     internal Vector2 Size { get; set; } = new(40, 40);
     internal Vector2 Speed = new(0, 0);
 
@@ -34,6 +43,7 @@ internal class Player
     internal Color C { get; set; } = Color.RED;
 
     internal Dir movement = Dir.None;
+    internal static int coins = 0;
 
     internal Player()
     {
@@ -116,8 +126,10 @@ internal class Player
         return new(cameraLerp, 0);
     }
 
-    internal void Powers()
+    internal static void DrawStats()
     {
+        Raylib.DrawTexture(ImageLib.Heart, 600, 10, Color.WHITE);
 
+        Raylib.DrawTexture(ImageLib.Coin, 700, 10, Color.WHITE);
     }
 }

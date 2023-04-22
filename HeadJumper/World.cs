@@ -53,13 +53,24 @@ static internal class World
         return true;
     }
 
-    internal static void CheckEnemyHits(Rectangle player)
+    internal static void CheckEnemyHits()
     {
         for (int i = ec.enemies.Count - 1; i >= 0; i--)
         {
-            if (Raylib.CheckCollisionRecs(player, ec.enemies[i].GetHitbox()))
+            if (Raylib.CheckCollisionRecs(Player.Hitbox, ec.enemies[i].GetHitbox()))
             {
                 ec.enemies.RemoveAt(i);
+            }
+        }
+    }
+
+    internal static void CheckCollectibleHits()
+    {
+        for (int i = cc.collectibles.Count - 1; i >= 0; i--)
+        {
+            if (cc.collectibles[i].Colliding())
+            {
+                cc.collectibles.RemoveAt(i);
             }
         }
     }

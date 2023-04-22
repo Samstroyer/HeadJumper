@@ -32,7 +32,8 @@ internal class Engine
         camera2D.target = Player.Position + p.CameraMovementLerp();
         camera2D.zoom = p.Zoom;
 
-        World.CheckEnemyHits(new(Player.Position.X, Player.Position.Y, p.Size.X, p.Size.Y));
+        World.CheckEnemyHits();
+        World.CheckCollectibleHits();
     }
 
     private void Controls()
@@ -87,6 +88,7 @@ internal class Engine
     {
         Raylib.EndMode2D();
         PowerUpController.RenderBoostSymbols();
+        Player.DrawStats();
         Raylib.EndDrawing();
     }
     #endregion 

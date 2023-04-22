@@ -11,6 +11,8 @@ internal class CollectibleController
         {
             new Coin(new(200, 30)),
             new Coin(new(100, 10)),
+            new Potion(new(200, -30)),
+            new Potion(new(100, -10)),
         };
     }
 
@@ -18,7 +20,17 @@ internal class CollectibleController
     {
         foreach (Collectible c in collectibles)
         {
-            c.Render();
+            if (c is Potion)
+            {
+                Potion potion = (Potion)c;
+                potion.Render();
+            }
+            else if (c is Coin)
+            {
+                Coin coin = (Coin)c;
+                coin.Render();
+                if (coin.Colliding()) Player.coins++;
+            }
         }
     }
 }

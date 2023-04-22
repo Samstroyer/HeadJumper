@@ -4,5 +4,7 @@ using Raylib_cs;
 
 internal static class ImageLib
 {
-    static Texture2D Coin = Raylib.LoadTexture("Sprites/Coin.png");
+    internal static Texture2D Coin = Raylib.LoadTexture("Sprites/Coin.png");
+    internal static Texture2D Heart = Raylib.LoadTexture("Sprites/Heart.png");
+    internal static Texture2D HealthPotion = Raylib.LoadTexture("Sprites/HealthPotion.png");
 }

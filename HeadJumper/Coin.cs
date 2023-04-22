@@ -6,10 +6,12 @@ internal class Coin : Collectible
     internal Coin(Vector2 pos)
     {
         position = pos;
+        size = new(10, 10);
+        dest = new(position.X, position.Y, size.X, size.Y);
     }
 
-    internal override void Render()
+    internal void Render()
     {
-        base.Render();
+        base.Render(ImageLib.Coin);
     }
 }

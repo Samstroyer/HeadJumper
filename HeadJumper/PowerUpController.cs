@@ -10,7 +10,7 @@ internal enum PowerUps
 
 static internal class PowerUpController
 {
-    static Color TransparentGray = new(100, 100, 100, 100);
+    internal static Color TransparentGray = new(100, 100, 100, 100);
 
     internal static Dictionary<PowerUps, BoostInfo> boosts = new()
     {
