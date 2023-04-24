@@ -49,7 +49,7 @@ internal class Player
 
     internal Player()
     {
-        Position = new(0, 0);
+        Position = new(40, 0);
         spriteTimer.Elapsed += ChangeSprite;
     }
 
@@ -77,7 +77,7 @@ internal class Player
 
         Position += Speed;
 
-        if (Position.X < -600) Position.X = -600;
+        if (Position.X < 0) Position.X = 0;
 
         Draw();
     }
