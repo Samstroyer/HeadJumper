@@ -164,4 +164,9 @@ internal class Player
         Raylib.DrawRectangle(650, 10, 10, 40, Color.GRAY);
         Raylib.DrawRectangleRec(hpBar, Color.RED);
     }
+
+    internal static void LoseHitpoints(int amount)
+    {
+        hitPoints -= amount;
+    }
 }

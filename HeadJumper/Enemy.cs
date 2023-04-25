@@ -20,4 +20,9 @@ internal abstract class Enemy
         hitbox = new(Position.X, Position.Y, Size.X, Size.Y);
         return hitbox;
     }
+
+    internal bool Colliding()
+    {
+        return Raylib.CheckCollisionRecs(hitbox, Player.Hitbox);
+    }
 }

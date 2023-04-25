@@ -88,7 +88,7 @@ static internal class World
         {
             if (Raylib.CheckCollisionRecs(Player.Hitbox, ec.enemies[i].GetHitbox()))
             {
-                ec.enemies.RemoveAt(i);
+                Player.LoseHitpoints(ec.enemies[i].Damage);
             }
         }
     }
