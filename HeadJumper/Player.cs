@@ -66,8 +66,6 @@ internal class Player
 
         if (!TouchingGrass || World.ShouldFall(Position, Size)) { Speed.Y += World.gravity; }
 
-        Speed += World.TouchingPlatformSpeed(Position, Size);
-
         var results = World.Colliding(Position, Size);
         if (results.Item1)
         {
@@ -75,6 +73,8 @@ internal class Player
             Position.Y = results.Item2 - Size.Y;
             TouchingGrass = true;
         }
+
+        Speed += World.TouchingPlatformSpeed(Position, Size);
 
         Position += Speed;
 

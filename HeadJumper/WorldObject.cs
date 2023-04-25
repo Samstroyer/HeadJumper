@@ -22,5 +22,6 @@ internal abstract class WorldObject
 
     internal virtual void Move() { }
 
-    internal virtual Vector2 GetSpeed() { return new(0, 0); }
+    internal virtual Vector2 GetLocalPosition() { return new(0, 0); }
+    internal virtual Vector2 GetSpeedChange() { return new(0, 0); }
 }
