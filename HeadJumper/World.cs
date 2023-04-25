@@ -12,7 +12,7 @@ static internal class World
         new StaticWorldObject(new(900 , 20 , 50 , 30)),
         new StaticWorldObject(new(950 , 10 , 400, 30)),
         new StaticWorldObject(new(1350, -10, 200, 20)),
-        new MovingWorldObject(new(1650, -60, 200, 20) , 0.05f, new(100, 100)),
+        new MovingWorldObject(new(1650, -60, 200, 20) , 0.05f, new(200, 0)),
     };
 
     static internal EnemyController ec = new();

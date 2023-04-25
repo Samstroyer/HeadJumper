@@ -9,8 +9,7 @@ internal class EnemyController
     {
         enemies = new()
         {
-            new StationaryEnemy() { Position = new(100, 10) },
-            new StationaryEnemy() { Position = new(200, -10) }
+            new Spike(new(100, 100)),
         };
     }
 
