@@ -14,6 +14,7 @@ static internal class World
         new StaticWorldObject(new(1350, -10, 200, 20)),
         new StaticWorldObject(new(1550, -30, 200, 20)),
         new MovingWorldObject(new(1650, -60, 200, 20) , 0.05f, new(200, 0)),
+        new MovingWorldObject(new(1850, -60, 200, 20) , 0.02f, new(0, 200)),
     };
 
     static internal EnemyController ec = new();
@@ -51,6 +52,26 @@ static internal class World
         }
 
         return (false, 0);
+    }
+
+    internal static Vector2 TouchingPlatformSpeed(Vector2 position, Vector2 size)
+    {
+        Vector2 speed = new(0, 0);
+
+        foreach (var obj in objects)
+        {
+            if (obj is not MovingWorldObject) continue;
+
+            Rectangle player = new(position.X, position.Y, size.X, size.Y + 1); // +1 so that it checksbelow and not on 
+            if (Raylib.CheckCollisionRecs(obj.R, player))
+            {
+                var change = obj.GetSpeed();
+                speed = new(change.X, change.Y);
+                return speed;
+            }
+        }
+
+        return speed;
     }
 
     internal static bool ShouldFall(Vector2 position, Vector2 size)

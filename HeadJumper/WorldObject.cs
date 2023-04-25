@@ -1,3 +1,4 @@
+using System.Numerics;
 using Raylib_cs;
 
 internal abstract class WorldObject
@@ -20,4 +21,6 @@ internal abstract class WorldObject
     }
 
     internal virtual void Move() { }
+
+    internal virtual Vector2 GetSpeed() { return new(0, 0); }
 }

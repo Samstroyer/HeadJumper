@@ -25,6 +25,19 @@ internal class MovingWorldObject : WorldObject
     internal override void Move()
     {
         progress += speed;
-        R.x = startPosition.X + (float)(Math.Cos(progress) * bounds.X);
+        var change = GetSpeed();
+
+        R.x = startPosition.X + change.X;
+        R.y = startPosition.Y + change.Y;
+        // R.x = startPosition.X + (float)(Math.Cos(progress) * bounds.X);
+        // R.y = startPosition.Y + (float)(Math.Sin(progress) * bounds.Y);
+    }
+
+    internal override Vector2 GetSpeed()
+    {
+        float x_ = (float)(Math.Cos(progress) * bounds.X);
+        float y_ = (float)(Math.Sin(progress) * bounds.Y);
+
+        return new(x_, y_);
     }
 }
