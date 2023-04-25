@@ -27,11 +27,6 @@ internal class Engine
 
     private void Logic()
     {
-        // This order gives you a "pushing" effect when moving. 
-        // I think it makes it more immersive
-        camera2D.target = Player.Position + p.CameraMovementLerp();
-        camera2D.zoom = p.Zoom;
-
         World.CheckEnemyHits();
         World.CheckCollectibleHits();
     }
@@ -60,6 +55,9 @@ internal class Engine
 
         // Player stuff
         p.MoveAndRender();
+        camera2D.target = Player.Position + p.CameraMovementLerp();
+        camera2D.zoom = p.Zoom;
+
         PowerUpController.boosts[PowerUps.Projectile].Update();
         PowerUpController.DrawParticles();
 

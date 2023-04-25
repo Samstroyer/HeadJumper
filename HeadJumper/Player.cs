@@ -71,12 +71,13 @@ internal class Player
         if (results.Item1)
         {
             Speed.Y = 0;
-            Position = new(Position.X, results.Item2 - Size.Y);
+            Position.Y = results.Item2 - Size.Y;
             TouchingGrass = true;
         }
 
         Position += Speed;
 
+        // World Borders
         if (Position.X < 0) Position.X = 0;
 
         Draw();
@@ -85,7 +86,6 @@ internal class Player
     private void ChangeSprite(Object source, ElapsedEventArgs e)
     {
         textureNumber++;
-        if (textureNumber > 3) textureNumber = 0;
     }
 
     private void Draw()
@@ -108,7 +108,7 @@ internal class Player
         if (!TouchingGrass) spriteHeight = 2;
 
         Rectangle playerRec = new((int)Position.X, (int)Position.Y, (int)Size.X, (int)Size.Y);
-        Raylib.DrawTexturePro(spriteSheet, new(textureNumber * 40, spriteHeight * 40, 40, 40), playerRec, new(0, 0), 0f, Color.WHITE);
+        Raylib.DrawTexturePro(spriteSheet, new((textureNumber %= 3) * 40, spriteHeight * 40, 40, 40), playerRec, new(0, 0), 0f, Color.WHITE);
         // Raylib.DrawRectangleRec(playerRec, new(100, 100, 100, 100));
     }
 
