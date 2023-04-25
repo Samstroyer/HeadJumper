@@ -6,13 +6,14 @@ static internal class World
 {
     static internal List<WorldObject> objects = new()
     {
-        new WorldObject(new(000 , 50 , 300, 30)),
-        new WorldObject(new(300 , 30 , 300, 30)),
-        new WorldObject(new(600 , 30 , 300, 30)),
-        new WorldObject(new(900 , 20 , 50 , 30)),
-        new WorldObject(new(950 , 10 , 400, 30)),
-        new WorldObject(new(1350, -10, 200, 20)),
-        new WorldObject(new(1550, -30, 200, 20)),
+        new StaticWorldObject(new(000 , 50 , 300, 30)),
+        new StaticWorldObject(new(300 , 30 , 300, 30)),
+        new StaticWorldObject(new(600 , 30 , 300, 30)),
+        new StaticWorldObject(new(900 , 20 , 50 , 30)),
+        new StaticWorldObject(new(950 , 10 , 400, 30)),
+        new StaticWorldObject(new(1350, -10, 200, 20)),
+        new StaticWorldObject(new(1550, -30, 200, 20)),
+        new MovingWorldObject(new(1650, -60, 200, 20) , 0.05f, new(200, 0)),
     };
 
     static internal EnemyController ec = new();
@@ -23,9 +24,17 @@ static internal class World
 
     internal static void Render()
     {
-        foreach (WorldObject o in objects)
+        foreach (WorldObject obj in objects)
         {
-            o.Render();
+            if (obj is MovingWorldObject)
+            {
+                obj.Move();
+                obj.Render();
+            }
+            else if (obj is StaticWorldObject)
+            {
+                obj.Render();
+            }
         }
     }
 

@@ -1,8 +1,8 @@
 using Raylib_cs;
 
-internal class WorldObject
+internal abstract class WorldObject
 {
-    internal Rectangle R { get; set; }
+    internal Rectangle R;
     internal Color C; // Color.DarkGreen;
 
     internal WorldObject(Rectangle r)
@@ -11,11 +11,13 @@ internal class WorldObject
 
         // Change division (now 2000) to final map size
         double progress = Raymath.Lerp(0, 255, r.x / 2000);
-        C = new((byte)progress, 255 - (byte)progress, 100, 255);
+        C = Raylib.GetImageColor(ImageLib.ColorMap, (int)progress, 0);
     }
 
-    internal void Render()
+    internal virtual void Render()
     {
         Raylib.DrawRectangleRec(R, C);
     }
+
+    internal virtual void Move() { }
 }

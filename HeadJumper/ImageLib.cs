@@ -7,4 +7,5 @@ internal static class ImageLib
     internal static Texture2D Coin = Raylib.LoadTexture("Sprites/Coin.png");
     internal static Texture2D Heart = Raylib.LoadTexture("Sprites/Heart.png");
     internal static Texture2D HealthPotion = Raylib.LoadTexture("Sprites/HealthPotion.png");
+    internal static Image ColorMap = Raylib.LoadImage("Assets/ColorMap.png");
 }
