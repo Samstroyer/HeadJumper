@@ -41,7 +41,8 @@ static internal class World
     {
         Rectangle src = new(0, 0, ImageLib.Background.width, ImageLib.Background.height);
         Rectangle dest = new(0 + Player.Position.X, -10 + Player.Position.Y / 10, 800, 800);
-        Raylib.DrawTexturePro(ImageLib.Background, src, dest, new(0, 0), 0f, Color.WHITE);
+        // Raylib.DrawTexturePro(ImageLib.Background, src, dest, new(0, 0), 0f, Color.WHITE);
+        Raylib.DrawTexturePro(ImageLib.Background, src, new(0, 0, Raylib.GetScreenWidth(), Raylib.GetScreenHeight()), new(0, 0), 0f, Color.WHITE);
     }
 
     internal static (bool, float) Colliding(Vector2 position, Vector2 size)

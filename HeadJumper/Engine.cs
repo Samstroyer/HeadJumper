@@ -44,9 +44,6 @@ internal class Engine
     {
         InitContext();
 
-        // Draw the parallax background (this will also draw the different layers)
-        World.DrawBackground();
-
         // Player stuff
         p.MoveAndRender();
         camera2D.target = Player.Position + p.CameraMovementLerp();
@@ -60,7 +57,6 @@ internal class Engine
         World.ec.DrawEnemies();
         World.cc.DrawCollectibles();
 
-
         EndContext();
     }
 
@@ -68,8 +64,12 @@ internal class Engine
     private void InitContext()
     {
         Raylib.BeginDrawing();
+
+        // Draw the parallax background (this will also draw the different layers)
+        World.DrawBackground();
+
         Raylib.BeginMode2D(camera2D);
-        Raylib.ClearBackground(Color.WHITE);
+        // Raylib.ClearBackground(Color.WHITE);
     }
 
     private void EndContext()
