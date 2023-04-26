@@ -84,6 +84,18 @@ internal class Player
         Draw();
     }
 
+    internal void Controls()
+    {
+        if (Raylib.IsKeyDown(KeyboardKey.KEY_W) || Raylib.IsKeyDown(KeyboardKey.KEY_SPACE)) Jump();
+
+        if (Raylib.IsKeyDown(KeyboardKey.KEY_A)) movement = Dir.Left;
+        else if (Raylib.IsKeyDown(KeyboardKey.KEY_D)) movement = Dir.Right;
+        else movement = Dir.None;
+
+        if (Raylib.IsKeyDown(KeyboardKey.KEY_Z)) Zooming(true);
+        else Zooming(false);
+    }
+
     private void ChangeSprite(Object source, ElapsedEventArgs e)
     {
         textureNumber++;

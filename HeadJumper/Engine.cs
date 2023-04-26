@@ -35,23 +35,17 @@ internal class Engine
     {
         KeyboardKey key = (KeyboardKey)Raylib.GetKeyPressed();
 
-        if (Raylib.IsKeyDown(KeyboardKey.KEY_W) || Raylib.IsKeyDown(KeyboardKey.KEY_SPACE)) p.Jump();
-
-        if (Raylib.IsKeyDown(KeyboardKey.KEY_A)) p.movement = Dir.Left;
-        else if (Raylib.IsKeyDown(KeyboardKey.KEY_D)) p.movement = Dir.Right;
-        else p.movement = Dir.None;
-
-        if (Raylib.IsKeyDown(KeyboardKey.KEY_Z)) p.Zooming(true);
-        else p.Zooming(false);
+        p.Controls();
 
         PowerUpController.Activate(key);
-
-        if (key == KeyboardKey.KEY_UP || key == KeyboardKey.KEY_DOWN) PowerUpController.boosts[PowerUps.Projectile].ChangeDirection();
     }
 
     private void Render()
     {
         InitContext();
+
+        // Draw the parallax background (this will also draw the different layers)
+        World.DrawBackground();
 
         // Player stuff
         p.MoveAndRender();
@@ -68,11 +62,6 @@ internal class Engine
 
 
         EndContext();
-    }
-
-    private void RenderCharacter()
-    {
-        Raylib.DrawRectangle((int)Player.Position.X, (int)Player.Position.Y, (int)p.Size.X, (int)p.Size.Y, p.C);
     }
 
     #region Context init and end

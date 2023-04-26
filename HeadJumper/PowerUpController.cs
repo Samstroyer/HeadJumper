@@ -22,9 +22,13 @@ static internal class PowerUpController
 
     internal static void Activate(KeyboardKey key)
     {
-        foreach (var b in boosts)
+        if (key == KeyboardKey.KEY_UP || key == KeyboardKey.KEY_DOWN) boosts[PowerUps.Projectile].ChangeDirection();
+        else
         {
-            if (b.Value.trigger == key) b.Value.TryActivate();
+            foreach (var b in boosts)
+            {
+                if (b.Value.trigger == key) b.Value.TryActivate();
+            }
         }
     }
 
