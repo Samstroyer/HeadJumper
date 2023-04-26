@@ -66,10 +66,10 @@ internal class Engine
         Raylib.BeginDrawing();
 
         // Draw the parallax background (this will also draw the different layers)
+        // Also has the clearbackground raylib function
         World.DrawBackground();
 
         Raylib.BeginMode2D(camera2D);
-        // Raylib.ClearBackground(Color.WHITE);
     }
 
     private void EndContext()

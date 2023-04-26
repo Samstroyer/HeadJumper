@@ -12,7 +12,7 @@ static internal class World
         new StaticWorldObject(new(900 , 20 , 50 , 30)),
         new StaticWorldObject(new(950 , 10 , 400, 30)),
         new StaticWorldObject(new(1350, -10, 200, 20)),
-        new MovingWorldObject(new(1650, -60, 200, 20) , 0.05f, new(200, 0)),
+        new MovingWorldObject(new(1800, -60, 200, 20) , 0.1f, new(600, 0)),
     };
 
     static internal EnemyController ec = new();
@@ -39,10 +39,27 @@ static internal class World
 
     internal static void DrawBackground()
     {
-        Rectangle src = new(0, 0, ImageLib.Background.width, ImageLib.Background.height);
-        Rectangle dest = new(0 + Player.Position.X, -10 + Player.Position.Y / 10, 800, 800);
+        int levelWidth = 3000;
+        // Could be called aspect ratio?
+        int imageUtilization = 320;
+
+        // Base
+        Raylib.DrawRectangle(0, 0, Raylib.GetScreenWidth(), Raylib.GetScreenHeight(), Color.WHITE);
+
+        float dist = Raymath.Lerp(0, 255, Player.Position.X / levelWidth);
+        Color c = Raylib.GetImageColor(ImageLib.SkyFade, (int)dist, 0);
+        Raylib.ClearBackground(new(c.r, c.g, c.b, (byte)100));
+
+        Rectangle src = new((float)Raymath.Lerp(0, ImageLib.Background.width - imageUtilization, Player.Position.X / levelWidth * 1.1f), 20, imageUtilization, 140);
+        Rectangle dest = new(0, 0, Raylib.GetScreenWidth(), Raylib.GetScreenHeight());
         // Raylib.DrawTexturePro(ImageLib.Background, src, dest, new(0, 0), 0f, Color.WHITE);
-        Raylib.DrawTexturePro(ImageLib.Background, src, new(0, 0, Raylib.GetScreenWidth(), Raylib.GetScreenHeight()), new(0, 0), 0f, Color.WHITE);
+        Raylib.DrawTexturePro(ImageLib.DistantBackground, src, dest, new(0, 0), 0f, Color.WHITE);
+
+        src = new((float)Raymath.Lerp(0, ImageLib.Background.width - imageUtilization, Player.Position.X / levelWidth), 20, imageUtilization, 140);
+        dest = new(0, 0, Raylib.GetScreenWidth(), Raylib.GetScreenHeight());
+        // Raylib.DrawTexturePro(ImageLib.Background, src, dest, new(0, 0), 0f, Color.WHITE);
+        Raylib.DrawTexturePro(ImageLib.Background, src, dest, new(0, 0), 0f, Color.WHITE);
+
     }
 
     internal static (bool, float) Colliding(Vector2 position, Vector2 size)

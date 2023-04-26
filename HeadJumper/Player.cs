@@ -34,6 +34,12 @@ internal class Player
         Enabled = true,
     };
 
+    private static System.Timers.Timer damageReset = new(500)
+    {
+        AutoReset = false,
+        Enabled = true,
+    };
+
     // Meme
     private bool TouchingGrass = true;
 
@@ -46,11 +52,13 @@ internal class Player
 
     internal Dir movement = Dir.None;
     internal static int coins = 0;
+    private static bool canBeDamaged = true;
 
     internal Player()
     {
         Position = new(40, 0);
         spriteTimer.Elapsed += ChangeSprite;
+        damageReset.Elapsed += CanTakeDamage;
     }
 
     internal static void Heal()
@@ -99,6 +107,11 @@ internal class Player
     private void ChangeSprite(Object source, ElapsedEventArgs e)
     {
         textureNumber++;
+    }
+
+    private void CanTakeDamage(Object source, ElapsedEventArgs e)
+    {
+        canBeDamaged = true;
     }
 
     private void Draw()
@@ -179,6 +192,11 @@ internal class Player
 
     internal static void LoseHitpoints(int amount)
     {
-        hitPoints -= amount;
+        if (canBeDamaged)
+        {
+            hitPoints -= amount;
+            canBeDamaged = false;
+            damageReset.Start();
+        }
     }
 }
