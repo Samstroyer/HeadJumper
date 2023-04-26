@@ -1,17 +1,13 @@
 using System.Numerics;
 using Raylib_cs;
+using System.IO;
 using System;
 
 static internal class World
 {
+    // Only add moveable objects
     static internal List<WorldObject> objects = new()
     {
-        new StaticWorldObject(new(000 , 50 , 300, 30)),
-        new StaticWorldObject(new(300 , 30 , 300, 30)),
-        new StaticWorldObject(new(600 , 30 , 300, 30)),
-        new StaticWorldObject(new(900 , 20 , 50 , 30)),
-        new StaticWorldObject(new(950 , 10 , 400, 30)),
-        new StaticWorldObject(new(1350, -10, 200, 20)),
         new MovingWorldObject(new(1800, -60, 200, 20) , 0.1f, new(600, 0)),
     };
 
@@ -20,6 +16,10 @@ static internal class World
 
     internal static float gravity = 0.5f;
 
+    internal static void LoadObjects(List<WorldObject> addedObjects)
+    {
+        objects.AddRange(addedObjects);
+    }
 
     internal static void Render()
     {

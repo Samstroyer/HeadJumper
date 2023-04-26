@@ -1,5 +1,7 @@
+using System.Text.Json;
 using System.Numerics;
 using Raylib_cs;
+using System.IO;
 
 internal class Engine
 {
@@ -14,6 +16,16 @@ internal class Engine
 
         screenDim = new(Raylib.GetScreenWidth(), Raylib.GetScreenHeight());
         camera2D = new(new(screenDim.X / 2, screenDim.Y / 2), Player.Position, 0f, 1f);
+    }
+
+    internal void Load()
+    {
+        string fileContents = "[{\"X\":9,\"Y\":38,\"Width\":287,\"Height\":25},{\"X\":294,\"Y\":40,\"Width\":179,\"Height\":27},{\"X\":473,\"Y\":50,\"Width\":697,\"Height\":18}]";
+
+        while (fileContents == null) ;
+
+        List<WorldObject> addedObjects = JsonSerializer.Deserialize<List<WorldObject>>(fileContents);
+        World.LoadObjects(addedObjects);
     }
 
     internal void Run()

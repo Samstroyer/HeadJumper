@@ -10,6 +10,7 @@ void Setup()
     Raylib.InitWindow(1000, 800, "Head Jumper");
     Raylib.SetTargetFPS(60);
     e = new();
+    e.Load();
 }
 
 void Draw()
