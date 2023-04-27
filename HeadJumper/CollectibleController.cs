@@ -17,7 +17,7 @@ internal class CollectibleController
         };
     }
 
-    internal void DrawCollectibles()
+    internal void DrawAndUpdateCollectibles()
     {
         foreach (Collectible c in collectibles)
         {

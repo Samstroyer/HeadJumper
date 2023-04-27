@@ -13,7 +13,7 @@ internal class EnemyController
         };
     }
 
-    internal void DrawEnemies()
+    internal void DrawAndUpdateEnemies()
     {
         foreach (Enemy e in enemies)
         {
