@@ -52,7 +52,7 @@ internal class WorldObject
     internal virtual Vector2 GetLocalPosition() { return new(0, 0); }
     internal virtual Vector2 GetSpeedChange() { return new(0, 0); }
 
-    internal virtual void LoadColor()
+    internal void LoadColor()
     {
         // Change division (now 2000) to final map size
         double progress = Raymath.Lerp(0, 255, r.x / 2000);

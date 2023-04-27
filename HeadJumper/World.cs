@@ -16,8 +16,13 @@ static internal class World
 
     internal static float gravity = 0.5f;
 
-    internal static void LoadObjects(List<WorldObject> addedObjects)
+    internal static void LoadObjects(List<StaticWorldObject> addedObjects)
     {
+        foreach (WorldObject wo in addedObjects)
+        {
+            wo.LoadColor();
+        }
+
         objects.AddRange(addedObjects);
     }
 

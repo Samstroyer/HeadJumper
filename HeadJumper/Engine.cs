@@ -20,10 +20,10 @@ internal class Engine
 
     internal void Load()
     {
-        string fileContents = File.ReadAllText("Level.json");
+        string fileContents = File.ReadAllText("./Level.json");
         Console.WriteLine(fileContents);
 
-        List<WorldObject> addedObjects = JsonSerializer.Deserialize<List<WorldObject>>(fileContents);
+        List<StaticWorldObject> addedObjects = JsonSerializer.Deserialize<List<StaticWorldObject>>(fileContents);
         World.LoadObjects(addedObjects);
     }
 
