@@ -15,6 +15,7 @@ static internal class World
     static internal EnemyController ec = new();
     static internal CollectibleController cc = new();
     static internal PortalController pc = new();
+    static internal InteractableController ic = new();
 
     internal static float gravity = 0.5f;
     public static Vector2 Border = new(4000, 0);
@@ -50,6 +51,7 @@ static internal class World
         ec.DrawAndUpdateEnemies();
         cc.DrawAndUpdateCollectibles();
         pc.DrawAndUpdatePortals();
+        ic.DrawAndUpdateInteractables();
     }
 
     internal static void DrawBackground()

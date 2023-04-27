@@ -1,6 +1,20 @@
-using System;
+using System.Numerics;
+using Raylib_cs;
 
-public class Interactable
+public abstract class Interactable
 {
+    protected bool obstructing = true;
+    protected Vector2 size;
+    protected Vector2 position;
 
+    public Interactable(int x, int y)
+    {
+        position = new(x, y);
+    }
+
+    public virtual void Draw()
+    {
+        Color c = obstructing ? Color.RED : Color.GREEN;
+        Raylib.DrawRectangleRec(new(position.X, position.Y, size.X, size.Y), Color.WHITE);
+    }
 }
