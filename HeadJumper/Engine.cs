@@ -20,9 +20,8 @@ internal class Engine
 
     internal void Load()
     {
-        string fileContents = "[{\"X\":9,\"Y\":38,\"Width\":287,\"Height\":25},{\"X\":294,\"Y\":40,\"Width\":179,\"Height\":27},{\"X\":473,\"Y\":50,\"Width\":697,\"Height\":18}]";
-
-        while (fileContents == null) ;
+        string fileContents = File.ReadAllText("Level.json");
+        Console.WriteLine(fileContents);
 
         List<WorldObject> addedObjects = JsonSerializer.Deserialize<List<WorldObject>>(fileContents);
         World.LoadObjects(addedObjects);

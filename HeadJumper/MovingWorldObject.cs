@@ -10,7 +10,7 @@ internal class MovingWorldObject : WorldObject
     private Vector2 startPosition;
     private float progress = 0;
 
-    internal MovingWorldObject(Rectangle r, float speed_, Vector2 bounds_) : base(r)
+    internal MovingWorldObject(Rectangle r, float speed_, Vector2 bounds_) : base()
     {
         startPosition = new(r.x, r.y);
         speed = speed_;
@@ -27,8 +27,8 @@ internal class MovingWorldObject : WorldObject
         progress += speed;
         var change = GetLocalPosition();
 
-        R.x = startPosition.X + change.X;
-        R.y = startPosition.Y + change.Y;
+        X = (int)(startPosition.X + change.X);
+        Y = (int)(startPosition.Y + change.Y);
         // R.x = startPosition.X + (float)(Math.Cos(progress) * bounds.X);
         // R.y = startPosition.Y + (float)(Math.Sin(progress) * bounds.Y);
     }

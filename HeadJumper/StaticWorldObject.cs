@@ -3,16 +3,15 @@ using Raylib_cs;
 
 internal class StaticWorldObject : WorldObject
 {
-    internal int x;
-    internal int y;
-    internal int width;
-    internal int height;
+    internal StaticWorldObject() : base() { }
 
-    internal StaticWorldObject(Rectangle r) : base(r) { }
-
-    internal void Load()
+    [JsonConstructor]
+    public StaticWorldObject(int x, int y, int width, int height)
     {
-        R = new(x, y, width, height);
+        X = x;
+        Y = y;
+        Width = width;
+        Height = height;
     }
 
     internal override void Render()

@@ -68,9 +68,9 @@ static internal class World
 
         foreach (var obj in objects)
         {
-            if (Raylib.CheckCollisionRecs(obj.R, player))
+            if (Raylib.CheckCollisionRecs(obj.r, player))
             {
-                return (true, obj.R.y);
+                return (true, obj.r.y);
             }
         }
 
@@ -85,7 +85,7 @@ static internal class World
 
             Rectangle player = new(position.X, position.Y, size.X, size.Y + 1); // +1 so that it checksbelow and not on 
 
-            if (Raylib.CheckCollisionRecs(obj.R, player))
+            if (Raylib.CheckCollisionRecs(obj.r, player))
             {
                 return obj.GetSpeedChange();
             }
@@ -101,7 +101,7 @@ static internal class World
 
         foreach (var obj in objects)
         {
-            if (Raylib.CheckCollisionRecs(obj.R, player)) return false;
+            if (Raylib.CheckCollisionRecs(obj.r, player)) return false;
         }
 
         return true;
