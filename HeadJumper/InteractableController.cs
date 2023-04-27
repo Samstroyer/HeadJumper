@@ -8,8 +8,8 @@ public class InteractableController
     {
         interactableDict = new()
         {
-            {new(100, -10), new Door(100, -50)},
-            {new(200, -10), new BoulderStack(200, - 50)}
+            {new(100, -10), new Door(100, -200)},
+            {new(200, -10), new BoulderStack(200, - 200)}
         };
     }
 
@@ -17,8 +17,8 @@ public class InteractableController
     {
         foreach (var entry in interactableDict)
         {
-            entry.Key.Draw();
-            entry.Value.Draw();
+            entry.Key.DrawAndCheck();
+            entry.Value.DrawAndUpdate(entry.Key.IsOn());
         }
     }
 }
