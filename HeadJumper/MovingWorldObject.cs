@@ -15,6 +15,11 @@ internal class MovingWorldObject : WorldObject
         startPosition = new(r.x, r.y);
         speed = speed_;
         bounds = bounds_;
+
+        X = (int)r.x;
+        Y = (int)r.y;
+        Width = (int)r.width;
+        Height = (int)r.height;
     }
 
     internal override void Render()

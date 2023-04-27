@@ -134,9 +134,10 @@ internal class Player
         if (!TouchingGrass) spriteHeight = 2;
 
         Rectangle playerRec = new((int)Position.X, (int)Position.Y, (int)Size.X, (int)Size.Y);
-        Raylib.DrawRectangleRec(playerRec, Color.RED);
         Raylib.DrawTexturePro(spriteSheet, new((textureNumber %= 3) * 40, spriteHeight * 40, 40, 40), playerRec, new(0, 0), 0f, Color.WHITE);
-        // Raylib.DrawRectangleRec(playerRec, new(100, 100, 100, 100));
+
+        // Hitbox
+        // Raylib.DrawRectangleRec(playerRec, Color.RED);
     }
 
     internal void Jump()

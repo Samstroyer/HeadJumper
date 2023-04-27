@@ -8,7 +8,7 @@ static internal class World
     // Only add moveable objects
     static internal List<WorldObject> objects = new()
     {
-        new MovingWorldObject(new(1800, -60, 200, 20) , 0.1f, new(600, 0)),
+        new MovingWorldObject(new(400, -60, 200, 20) , 0.08f, new(200, 0)),
     };
 
     static internal EnemyController ec = new();
@@ -18,12 +18,12 @@ static internal class World
 
     internal static void LoadObjects(List<StaticWorldObject> addedObjects)
     {
-        foreach (WorldObject wo in addedObjects)
+        objects.AddRange(addedObjects);
+
+        foreach (WorldObject wo in objects)
         {
             wo.LoadColor();
         }
-
-        objects.AddRange(addedObjects);
     }
 
     internal static void Render()
@@ -46,14 +46,12 @@ static internal class World
     {
         int levelWidth = 3000;
         // Could be called aspect ratio?
-        int imageUtilization = 320;
+        int imageUtilization = 150;
 
         // Base
-        Raylib.DrawRectangle(0, 0, Raylib.GetScreenWidth(), Raylib.GetScreenHeight(), Color.WHITE);
-
         float dist = Raymath.Lerp(0, 255, Player.Position.X / levelWidth);
         Color c = Raylib.GetImageColor(ImageLib.SkyFade, (int)dist, 0);
-        Raylib.ClearBackground(new(c.r, c.g, c.b, (byte)100));
+        Raylib.ClearBackground(c);
 
         Rectangle src = new((float)Raymath.Lerp(0, ImageLib.Background.width - imageUtilization, Player.Position.X / levelWidth * 1.1f), 20, imageUtilization, 140);
         Rectangle dest = new(0, 0, Raylib.GetScreenWidth(), Raylib.GetScreenHeight());
