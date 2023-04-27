@@ -17,8 +17,7 @@ internal abstract class Enemy
 
     internal Rectangle GetHitbox()
     {
-        hitbox = new(Position.X, Position.Y, Size.X, Size.Y);
-        return hitbox;
+        return hitbox = new(Position.X, Position.Y, Size.X, Size.Y);
     }
 
     internal bool Colliding()

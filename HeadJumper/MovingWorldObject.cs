@@ -34,8 +34,6 @@ internal class MovingWorldObject : WorldObject
 
         X = (int)(startPosition.X + change.X);
         Y = (int)(startPosition.Y + change.Y);
-        // R.x = startPosition.X + (float)(Math.Cos(progress) * bounds.X);
-        // R.y = startPosition.Y + (float)(Math.Sin(progress) * bounds.Y);
     }
 
     internal override Vector2 GetLocalPosition()
@@ -50,10 +48,10 @@ internal class MovingWorldObject : WorldObject
     {
         Vector2 prev = GetLocalPosition();
 
-        float progress_ = progress + speed;
+        float nextProgress = progress + speed;
 
-        float x_ = (float)(Math.Cos(progress_) * bounds.X);
-        float y_ = (float)(Math.Sin(progress_) * bounds.Y);
+        float x_ = (float)(Math.Cos(nextProgress) * bounds.X);
+        float y_ = (float)(Math.Sin(nextProgress) * bounds.Y);
 
         return new Vector2(x_, y_) - prev;
     }

@@ -27,7 +27,11 @@ internal class Player
     internal Vector2 Speed = new(0, 0);
 
     private int textureNumber = 0;
-    private Texture2D spriteSheet = Raylib.LoadTexture("Sprites/PlayerSpriteSheet.png");
+    private Texture2D spriteSheetFullHealth = Raylib.LoadTexture("Sprites/PlayerSpriteSheet.png");
+    private Texture2D spriteSheetHalfHealth = Raylib.LoadTexture("Sprites/PlayerSpriteSheet.png");
+    private Texture2D spriteSheetLowHealth = Raylib.LoadTexture("Sprites/PlayerSpriteSheet.png");
+    private Texture2D damageSprite = Raylib.LoadTexture("Sprites/PlayerSpriteSheet.png");
+
     private System.Timers.Timer spriteTimer = new(200)
     {
         AutoReset = true,
@@ -40,12 +44,12 @@ internal class Player
         Enabled = true,
     };
 
-    // Meme
+    // Meme - but usefull
     private bool TouchingGrass = true;
 
-    internal float Zoom { get; set; } = 2f;
+    internal float Zoom { get; set; } = 1.5f;
 
-    private Vector2 zoomMinMax = new(2f, 0.5f);
+    private Vector2 zoomMinMax = new(1.5f, 0.5f);
     private float cameraLerp = 0;
 
     internal Color C { get; set; } = Color.RED;
@@ -61,9 +65,9 @@ internal class Player
         damageReset.Elapsed += CanTakeDamage;
     }
 
-    internal static void Heal()
+    internal static void Heal(int amount)
     {
-        hitPoints += 20;
+        hitPoints += amount;
         if (hitPoints > maxHealth) hitPoints = maxHealth;
     }
 
@@ -74,20 +78,23 @@ internal class Player
 
         if (!TouchingGrass || World.ShouldFall(Position, Size)) { Speed.Y += World.gravity; }
 
-        var results = World.Colliding(Position, Size);
-        if (results.Item1)
+        (bool isColliding, float objectHeight) results = World.Colliding(Position, Size);
+
+        if (results.isColliding)
         {
             Speed.Y = 0;
-            Position.Y = results.Item2 - Size.Y;
+            Position.Y = results.objectHeight - Size.Y;
             TouchingGrass = true;
         }
 
+        // Add the speed of a moving platform
         Speed += World.TouchingPlatformSpeed(Position, Size);
 
         Position += Speed;
 
         // World Borders
         if (Position.X < 0) Position.X = 0;
+        else if (Position.X > World.Border.X - Player.Hitbox.width) Position.X = World.Border.X - Player.Hitbox.width;
 
         Draw();
     }
@@ -116,6 +123,8 @@ internal class Player
 
     private void Draw()
     {
+        // TODO // Determine HP and use correct sprite with function here
+
         int spriteHeight = 0;
 
         switch (movement)
@@ -134,9 +143,9 @@ internal class Player
         if (!TouchingGrass) spriteHeight = 2;
 
         Rectangle playerRec = new((int)Position.X, (int)Position.Y, (int)Size.X, (int)Size.Y);
-        Raylib.DrawTexturePro(spriteSheet, new((textureNumber %= 3) * 40, spriteHeight * 40, 40, 40), playerRec, new(0, 0), 0f, Color.WHITE);
+        Raylib.DrawTexturePro(spriteSheetFullHealth, new((textureNumber %= 3) * 40, spriteHeight * 40, 40, 40), playerRec, new(0, 0), 0f, Color.WHITE);
 
-        // Hitbox
+        // Hitbox - for debugging
         // Raylib.DrawRectangleRec(playerRec, Color.RED);
     }
 
@@ -158,13 +167,13 @@ internal class Player
 
     internal Vector2 CameraMovementLerp()
     {
-        if (movement == Dir.None) { cameraLerp = Raymath.Lerp(cameraLerp, 0, 0.1f); }
-        else cameraLerp = Raymath.Lerp(cameraLerp, (int)movement * 8, 0.1f);
+        if (movement == Dir.None) { cameraLerp = Raymath.Lerp(cameraLerp, 0 + Size.X / 2, 0.1f); }
+        else cameraLerp = Raymath.Lerp(cameraLerp, (int)movement * 10, 0.1f);
 
         return new(cameraLerp, 0);
     }
 
-    internal static void DrawStats()
+    internal static void DrawHUD()
     {
         DrawHPStats();
         DrawCoinStats();

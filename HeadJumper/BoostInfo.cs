@@ -8,7 +8,7 @@ internal class BoostInfo
     internal string Name { get; set; }
     internal string Info { get; set; }
 
-    internal DateTime lastEventTime;
+    internal DateTime lastActivated;
 
     internal System.Timers.Timer cooldownTimer;
     internal System.Timers.Timer activeTimer;
@@ -44,14 +44,14 @@ internal class BoostInfo
     {
         isActive = true; available = false;
         activeTimer.Start();
-        lastEventTime = DateTime.Now.AddSeconds(activeTimer.Interval / 1000);
+        lastActivated = DateTime.Now.AddSeconds(activeTimer.Interval / 1000);
     }
 
     private void ActiveEnd(Object source, ElapsedEventArgs e)
     {
         cooldownTimer.Start();
         isActive = false;
-        lastEventTime = DateTime.Now.AddSeconds(cooldownTimer.Interval / 1000);
+        lastActivated = DateTime.Now.AddSeconds(cooldownTimer.Interval / 1000);
     }
 
     private void CooldownEnd(Object source, ElapsedEventArgs e)

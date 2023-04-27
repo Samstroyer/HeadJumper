@@ -60,7 +60,7 @@ static internal class PowerUpController
             }
             else if (b.Value.isActive)
             {
-                var time = b.Value.lastEventTime - DateTime.Now;
+                var time = b.Value.lastActivated - DateTime.Now;
                 string displayedTime = (time.Seconds + "." + (Math.Floor((decimal)time.Milliseconds / 100))).ToString();
 
                 int textWidth = Raylib.MeasureText(displayedTime, 16);
@@ -68,7 +68,7 @@ static internal class PowerUpController
             }
             else
             {
-                var time = b.Value.lastEventTime - DateTime.Now;
+                var time = b.Value.lastActivated - DateTime.Now;
                 string displayedTime = (time.Seconds + "." + (Math.Floor((decimal)time.Milliseconds / 100))).ToString();
 
                 int textWidth = Raylib.MeasureText(displayedTime, 16);

@@ -41,7 +41,7 @@ internal class Projectile : BoostInfo
     {
         isActive = true; available = false;
         activeTimer.Start();
-        lastEventTime = DateTime.Now.AddSeconds(activeTimer.Interval / 1000);
+        lastActivated = DateTime.Now.AddSeconds(activeTimer.Interval / 1000);
 
         speed = (int)shootingDir;
         position = Player.Position;

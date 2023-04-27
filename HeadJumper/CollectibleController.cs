@@ -7,6 +7,7 @@ internal class CollectibleController
 
     internal CollectibleController()
     {
+        // Maybe load from json?
         collectibles = new()
         {
             new Coin(new(200, 30)),
@@ -24,7 +25,7 @@ internal class CollectibleController
             {
                 Potion potion = (Potion)c;
                 potion.Render();
-                if (potion.Colliding()) Player.Heal();
+                if (potion.Colliding()) Player.Heal(potion.healing);
             }
             else if (c is Coin)
             {

@@ -7,7 +7,7 @@ internal class Coin : Collectible
     {
         position = pos;
         size = new(10, 10);
-        dest = new(position.X, position.Y, size.X, size.Y);
+        hitbox = new(position.X, position.Y, size.X, size.Y);
     }
 
     internal void Render()

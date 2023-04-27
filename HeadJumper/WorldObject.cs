@@ -26,7 +26,7 @@ internal class WorldObject
     public int Height { get; set; }
 
     [JsonIgnore]
-    internal Color C; // Color.DarkGreen;
+    internal Color C;
 
     internal WorldObject() { }
 
@@ -38,7 +38,7 @@ internal class WorldObject
         Height = (int)r.height;
 
         // Change division (now 2000) to final map size
-        double progress = Raymath.Lerp(0, 255, r.x / 2000);
+        double progress = Raymath.Lerp(0, 255, r.x / World.Border.X);
         C = Raylib.GetImageColor(ImageLib.ColorMap, (int)progress, 0);
     }
 
@@ -54,8 +54,7 @@ internal class WorldObject
 
     internal void LoadColor()
     {
-        // Change division (now 2000) to final map size
-        double progress = Raymath.Lerp(0, 255, r.x / 2000);
+        double progress = Raymath.Lerp(0, 255, r.x / World.Border.X);
         C = Raylib.GetImageColor(ImageLib.ColorMap, (int)progress, 0);
     }
 }
