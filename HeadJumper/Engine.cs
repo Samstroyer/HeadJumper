@@ -5,7 +5,6 @@ using System.IO;
 internal class Engine
 {
     public static Vector2 screenDim;
-    Camera2D camera2D;
 
     Player p;
 
@@ -14,7 +13,6 @@ internal class Engine
         p = new();
 
         screenDim = new(Raylib.GetScreenWidth(), Raylib.GetScreenHeight());
-        camera2D = new(new(screenDim.X / 2, screenDim.Y / 2), Player.Position, 0f, 1f);
 
         World.LoadObjects();
     }
@@ -48,8 +46,7 @@ internal class Engine
 
         // Player stuff
         p.MoveAndRender();
-        camera2D.target = Player.Position + p.CameraMovementLerp();
-        camera2D.zoom = p.Zoom;
+        World.SetCamera(p);
 
         // boosts
         PowerUpController.boosts[PowerUps.Projectile].Update();
@@ -70,7 +67,7 @@ internal class Engine
         // Also has the clearbackground raylib function
         World.DrawBackground();
 
-        Raylib.BeginMode2D(camera2D);
+        Raylib.BeginMode2D(World.camc.cam);
     }
 
     private void EndContext()
