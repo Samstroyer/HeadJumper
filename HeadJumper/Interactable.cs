@@ -18,4 +18,6 @@ public abstract class Interactable
         Color c = obstructing ? Color.RED : Color.GREEN;
         Raylib.DrawRectangleRec(new(position.X, position.Y, size.X, size.Y), c);
     }
+
+    
 }

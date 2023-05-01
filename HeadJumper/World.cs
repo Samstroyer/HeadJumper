@@ -151,5 +151,8 @@ static internal class World
     {
         camc.cam.target = Player.Position + p.CameraMovementLerp();
         camc.cam.zoom = p.Zoom;
+
+        // Overrides the focus, if event happens
+        camc.CameraSpecialFocus();
     }
 }
