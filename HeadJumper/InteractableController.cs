@@ -11,6 +11,11 @@ public class InteractableController
             {new(400, -10), new Door(400, -200)},
             // {new(40, -40), new BoulderStack(40, - 200)}
         };
+
+        foreach (var entry in interactableDict)
+        {
+            entry.Key.AddTarget(entry.Value);
+        }
     }
 
     internal void DrawAndUpdateInteractables()

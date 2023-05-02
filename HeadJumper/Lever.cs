@@ -15,9 +15,16 @@ public class Lever
     static Vector2 size = new(40, 40);
     Vector2 position;
 
+    Interactable target;
+
     public Lever(int x, int y)
     {
         position = new(x, y);
+    }
+
+    public void AddTarget(Interactable t)
+    {
+        target = t;
     }
 
     public void DrawAndCheck()
@@ -36,7 +43,7 @@ public class Lever
         if (Raylib.CheckCollisionRecs(Player.Hitbox, hitbox))
         {
             isFlipped = true;
-            World.camc.OverrideCamera(2000, new(0, 0));
+            World.camc.OverrideCamera(2000, target.position);
         }
     }
 

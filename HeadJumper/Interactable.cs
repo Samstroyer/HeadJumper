@@ -5,7 +5,7 @@ public abstract class Interactable
 {
     protected bool obstructing = true;
     protected Vector2 size;
-    protected Vector2 position;
+    public Vector2 position;
 
     public Interactable(int x, int y)
     {
