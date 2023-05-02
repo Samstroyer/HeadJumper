@@ -9,7 +9,7 @@ public class InteractableController
         interactableDict = new()
         {
             {new(400, -10), new Door(400, -200)},
-            {new(40, -40), new BoulderStack(40, - 200)}
+            // {new(40, -40), new BoulderStack(40, - 200)}
         };
     }
 

@@ -22,9 +22,22 @@ public class Lever
 
     public void DrawAndCheck()
     {
-        if (Raylib.CheckCollisionRecs(Player.Hitbox, hitbox)) isFlipped = true;
+        Check();
+
         Color c = isFlipped ? Color.RED : Color.GREEN;
         Raylib.DrawRectangleRec(new(position.X, position.Y, size.X, size.Y), c);
+    }
+
+    private void Check()
+    {
+        // Will need to be changed if i want to be able and switch back, probably not
+        if (isFlipped) return;
+
+        if (Raylib.CheckCollisionRecs(Player.Hitbox, hitbox))
+        {
+            isFlipped = true;
+            World.camc.OverrideCamera(2000, new(0, 0));
+        }
     }
 
     public bool IsOn()

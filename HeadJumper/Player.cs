@@ -19,18 +19,18 @@ internal class Player
     {
         get
         {
-            return new Rectangle(Position.X, Position.Y, 40, 40);
+            return new Rectangle(Position.X, Position.Y, 50, 50);
         }
     }
 
-    internal Vector2 Size { get; set; } = new(40, 40);
+    internal Vector2 Size { get; set; } = new(Hitbox.width, Hitbox.height);
     internal Vector2 Speed = new(0, 0);
 
     private int textureNumber = 0;
     private Texture2D spriteSheetFullHealth = Raylib.LoadTexture("Sprites/PlayerSpriteSheet.png");
     private Texture2D spriteSheetHalfHealth = Raylib.LoadTexture("Sprites/PlayerSpriteSheet.png");
     private Texture2D spriteSheetLowHealth = Raylib.LoadTexture("Sprites/PlayerSpriteSheet.png");
-    private Texture2D damageSprite = Raylib.LoadTexture("Sprites/PlayerSpriteSheet.png");
+    private Texture2D damageSprite = Raylib.LoadTexture("Sprites/DamagedCharacter.png");
 
     private System.Timers.Timer spriteTimer = new(200)
     {
@@ -60,7 +60,7 @@ internal class Player
 
     internal Player()
     {
-        Position = new(40, 0);
+        Position = new(40, -100);
         spriteTimer.Elapsed += ChangeSprite;
         damageReset.Elapsed += CanTakeDamage;
     }
@@ -121,8 +121,14 @@ internal class Player
         canBeDamaged = true;
     }
 
+    private Texture2D DetermineSprite()
+    {
+        return spriteSheetFullHealth;
+    }
+
     private void Draw()
     {
+        Texture2D usedSprite = DetermineSprite();
         // TODO // Determine HP and use correct sprite with function here
 
         int spriteHeight = 0;
@@ -142,8 +148,16 @@ internal class Player
 
         if (!TouchingGrass) spriteHeight = 2;
 
-        Rectangle playerRec = new((int)Position.X, (int)Position.Y, (int)Size.X, (int)Size.Y);
-        Raylib.DrawTexturePro(spriteSheetFullHealth, new((textureNumber %= 3) * 40, spriteHeight * 40, 40, 40), playerRec, new(0, 0), 0f, Color.WHITE);
+        if (!canBeDamaged)
+        {
+            Rectangle playerRec = new((int)Position.X, (int)Position.Y, (int)Size.X, (int)Size.Y);
+            Raylib.DrawTexturePro(damageSprite, new(0, 0, 40, 40), playerRec, new(0, 0), 0f, Color.WHITE);
+        }
+        else
+        {
+            Rectangle playerRec = new((int)Position.X, (int)Position.Y, (int)Size.X, (int)Size.Y);
+            Raylib.DrawTexturePro(spriteSheetFullHealth, new((textureNumber %= 3) * 40, spriteHeight * 40, 40, 40), playerRec, new(0, 0), 0f, Color.WHITE);
+        }
 
         // Hitbox - for debugging
         // Raylib.DrawRectangleRec(playerRec, Color.RED);
@@ -165,12 +179,15 @@ internal class Player
         else Zoom = Raymath.Lerp(Zoom, zoomMinMax.X, 0.1f);
     }
 
-    internal Vector2 CameraMovementLerp()
+    internal Vector2 LookAhead()
     {
-        if (movement == Dir.None) { cameraLerp = Raymath.Lerp(cameraLerp, 0 + Size.X / 2, 0.1f); }
-        else cameraLerp = Raymath.Lerp(cameraLerp, (int)movement * 10, 0.1f);
+        if (movement == Dir.None) return new(0, 0);
+        else return new((int)movement * 10, 0);
 
-        return new(cameraLerp, 0);
+        // if (movement == Dir.None) { cameraLerp = Raymath.Lerp(cameraLerp, 0 + Size.X / 2, 0.1f); }
+        // else cameraLerp = Raymath.Lerp(cameraLerp, (int)movement * 10, 0.1f);
+
+        // return new(cameraLerp, 0);
     }
 
     internal static void DrawHUD()

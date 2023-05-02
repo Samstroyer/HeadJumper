@@ -5,7 +5,7 @@ using Raylib_cs;
 public class CameraController
 {
     public Camera2D cam;
-    private bool targetOverride = false;
+    public bool targetOverride = false;
     private Vector2 overridenPosition;
 
     private System.Timers.Timer playerFocus;
@@ -18,11 +18,13 @@ public class CameraController
             AutoReset = false,
             Enabled = true
         };
+        playerFocus.Elapsed += TurnOffFocus;
     }
 
     private void TurnOffFocus(Object source, ElapsedEventArgs e)
     {
         targetOverride = false;
+        overridenPosition = new(0, 0);
     }
 
     public void OverrideCamera(int msTime, Vector2 position)
@@ -33,10 +35,21 @@ public class CameraController
         playerFocus.Start();
     }
 
-    public void CameraSpecialFocus()
+    public void FocusCamera(Vector2 basePos)
     {
-        if (!targetOverride) return;
-        Vector2 lerp = new(Raymath.Lerp(cam.target.X, overridenPosition.X, 0.1f), Raymath.Lerp(cam.target.Y, overridenPosition.X, 0.1f));
-        cam.target += lerp;
+        if (targetOverride)
+        {
+            cam.target = new(
+                Raymath.Lerp(cam.target.X, overridenPosition.X, 0.1f),
+                Raymath.Lerp(cam.target.Y, overridenPosition.Y, 0.1f)
+                );
+        }
+        else
+        {
+            cam.target = new(
+                Raymath.Lerp(cam.target.X, basePos.X, 0.2f),
+                Raymath.Lerp(cam.target.Y, basePos.Y, 0.2f)
+                );
+        }
     }
 }

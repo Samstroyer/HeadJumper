@@ -149,10 +149,9 @@ static internal class World
 
     internal static void SetCamera(Player p)
     {
-        camc.cam.target = Player.Position + p.CameraMovementLerp();
         camc.cam.zoom = p.Zoom;
-
         // Overrides the focus, if event happens
-        camc.CameraSpecialFocus();
+        Vector2 basePosition = Player.Position + p.LookAhead();
+        camc.FocusCamera(basePosition);
     }
 }
