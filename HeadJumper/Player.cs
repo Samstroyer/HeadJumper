@@ -121,32 +121,9 @@ internal class Player
         canBeDamaged = true;
     }
 
-    private Texture2D DetermineSprite()
-    {
-        return spriteSheetFullHealth;
-    }
-
     private void Draw()
     {
-        Texture2D usedSprite = DetermineSprite();
         // TODO // Determine HP and use correct sprite with function here
-
-        int spriteHeight = 0;
-
-        switch (movement)
-        {
-            case Dir.Right:
-                spriteHeight = 0;
-                break;
-            case Dir.Left:
-                spriteHeight = 1;
-                break;
-            case Dir.None:
-                spriteHeight = 3;
-                break;
-        }
-
-        if (!TouchingGrass) spriteHeight = 2;
 
         if (!canBeDamaged)
         {
@@ -155,6 +132,25 @@ internal class Player
         }
         else
         {
+            int spriteHeight = 0;
+
+            if (!TouchingGrass) spriteHeight = 2;
+            else
+            {
+                switch (movement)
+                {
+                    case Dir.Right:
+                        spriteHeight = 0;
+                        break;
+                    case Dir.Left:
+                        spriteHeight = 1;
+                        break;
+                    case Dir.None:
+                        spriteHeight = 3;
+                        break;
+                }
+            }
+
             Rectangle playerRec = new((int)Position.X, (int)Position.Y, (int)Size.X, (int)Size.Y);
             Raylib.DrawTexturePro(spriteSheetFullHealth, new((textureNumber %= 3) * 40, spriteHeight * 40, 40, 40), playerRec, new(0, 0), 0f, Color.WHITE);
         }

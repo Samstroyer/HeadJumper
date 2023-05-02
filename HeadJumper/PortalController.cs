@@ -9,7 +9,7 @@ public class PortalController
         // Maybe load from json?
         portals = new()
         {
-            new Portal(200, -20),
+            new Portal(200, -200),
             new Portal(300, -20)
         };
 

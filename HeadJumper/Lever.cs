@@ -43,7 +43,7 @@ public class Lever
         if (Raylib.CheckCollisionRecs(Player.Hitbox, hitbox))
         {
             isFlipped = true;
-            World.camc.OverrideCamera(2000, target.position);
+            World.camc.OverrideCamera(3000, target.position);
         }
     }
 
