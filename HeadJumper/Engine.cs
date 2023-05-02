@@ -37,6 +37,8 @@ internal class Engine
         KeyboardKey key = (KeyboardKey)Raylib.GetKeyPressed();
         PowerUpController.Activate(key);
 
+        if (Raylib.IsKeyPressed(KeyboardKey.KEY_L)) Console.WriteLine(Player.Position);
+
         p.Controls();
     }
 

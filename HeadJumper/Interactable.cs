@@ -19,5 +19,5 @@ public abstract class Interactable
         Raylib.DrawRectangleRec(new(position.X, position.Y, size.X, size.Y), c);
     }
 
-    
+
 }
