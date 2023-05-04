@@ -10,6 +10,7 @@ internal class EnemyController
         enemies = new()
         {
             new Spike(new(100, 0)),
+            new Slime(new(200, -30)),
         };
     }
 
