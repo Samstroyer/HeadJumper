@@ -14,6 +14,7 @@ internal class Player
     internal static readonly float maxHealth = 100;
     internal static float hitPoints = maxHealth;
     internal static Vector2 Position;
+    internal static int kills = 0;
 
     internal static Rectangle Hitbox
     {
@@ -188,6 +189,7 @@ internal class Player
 
     internal static void DrawHUD()
     {
+        Raylib.DrawTexturePro(ImageLib.HUDElement, new(0, 0, ImageLib.HUDElement.width, ImageLib.HUDElement.height), new(0, 0, ImageLib.HUDElement.width, ImageLib.HUDElement.height), new(0, 0), 0f, Color.WHITE);
         DrawHPStats();
         DrawCoinStats();
     }

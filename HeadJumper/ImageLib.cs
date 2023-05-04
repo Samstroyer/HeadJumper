@@ -10,6 +10,7 @@ internal static class ImageLib
     internal static Texture2D HealthPotion = Raylib.LoadTexture("Sprites/HealthPotion.png");
     internal static Texture2D Background = Raylib.LoadTexture("Assets/Background.png");
     internal static Texture2D DistantBackground = Raylib.LoadTexture("Assets/DistantBackground.png");
+    internal static Texture2D HUDElement = Raylib.LoadTexture("Assets/Overlay.png");
     internal static Texture2D SlimeSpriteSheet = Raylib.LoadTexture("Sprites/SlimeSpriteSheet.png");
 
     internal static Image SkyFade = Raylib.LoadImage("Assets/SkyFade.png");

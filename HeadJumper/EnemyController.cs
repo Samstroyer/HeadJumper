@@ -16,9 +16,10 @@ internal class EnemyController
 
     internal void DrawAndUpdateEnemies()
     {
-        foreach (Enemy e in enemies)
+        for (int i = enemies.Count - 1; i >= 0; i--)
         {
-            e.UpdateAndDraw();
+            if (enemies[i].dead) enemies.RemoveAt(i);
+            else enemies[i].UpdateAndDraw();
         }
     }
 

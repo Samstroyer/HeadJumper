@@ -52,6 +52,13 @@ internal class Slime : Enemy
 
     internal override void UpdateAndDraw()
     {
+        if (CheckBounds())
+        {
+            dead = true;
+            Player.kills++;
+            return;
+        }
+
         Move();
 
         if (SeesPlayer())
@@ -66,13 +73,20 @@ internal class Slime : Enemy
         else Raylib.DrawTexturePro(ImageLib.SlimeSpriteSheet, new(32 * (spriteNum % 8), 0, 32, 32), hitbox, new(0, 0), 0f, Color.WHITE);
     }
 
+    private bool CheckBounds()
+    {
+        return Position.Y > 200;
+    }
+
     private void Move()
     {
         var collisionInfo = World.Colliding(Position, Size);
 
+        Speed.Y += World.gravity;
+
         if (collisionInfo.Item1)
         {
-            Position.Y = collisionInfo.Item2;
+            Position.Y = collisionInfo.Item2 - Size.Y;
             Speed.Y = 0;
             touchingGround = true;
         }

@@ -9,6 +9,7 @@ internal abstract class Enemy
     internal Vector2 Position;
     internal Vector2 Size = new(10, 10);
     protected Rectangle hitbox;
+    internal bool dead = false;
 
     internal virtual void UpdateAndDraw()
     {
