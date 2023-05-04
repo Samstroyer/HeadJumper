@@ -3,9 +3,9 @@ using Raylib_cs;
 
 internal abstract class Enemy
 {
-    internal int Speed { get; set; }
     internal int Damage { get; set; }
     internal int Hitpoints { get; set; }
+    internal Vector2 Speed;
     internal Vector2 Position;
     internal Vector2 Size = new(10, 10);
     protected Rectangle hitbox;

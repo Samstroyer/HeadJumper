@@ -8,9 +8,9 @@ internal class Slime : Enemy
     {
         left = -1,
         right = 1,
+        blind = 0,
     }
 
-    bool ready = true;
     bool touchingGround = true;
 
     private System.Timers.Timer SpriteTimer;
@@ -34,9 +34,13 @@ internal class Slime : Enemy
     {
         SpriteTimer = new(200)
         {
-            AutoReset = false,
+            AutoReset = true,
             Enabled = true,
         };
+
+        SpriteTimer.Elapsed += ChangeSprite;
+
+        SpriteTimer.Start();
 
         Position = pos;
         Size = new(50, 50);
@@ -48,28 +52,56 @@ internal class Slime : Enemy
 
     internal override void UpdateAndDraw()
     {
-        if (SeesPlayer() && ready)
+        Move();
+
+        if (SeesPlayer())
         {
             if (Player.Position.X > Position.X) jumpDir = PlayerDir.right;
-            Jump();
+            else jumpDir = PlayerDir.left;
+            TryJump();
         }
+        else jumpDir = PlayerDir.blind;
 
         if (touchingGround) Raylib.DrawTexturePro(ImageLib.SlimeSpriteSheet, new(0, 0, 32, 32), hitbox, new(0, 0), 0f, Color.WHITE);
+        else Raylib.DrawTexturePro(ImageLib.SlimeSpriteSheet, new(32 * (spriteNum % 8), 0, 32, 32), hitbox, new(0, 0), 0f, Color.WHITE);
+    }
+
+    private void Move()
+    {
+        var collisionInfo = World.Colliding(Position, Size);
+
+        if (collisionInfo.Item1)
+        {
+            Position.Y = collisionInfo.Item2;
+            Speed.Y = 0;
+            touchingGround = true;
+        }
+
+        Position += Speed;
     }
 
     private void ChangeSprite(Object source, ElapsedEventArgs e)
     {
-        spriteNum++;
+        if (touchingGround) spriteNum = 0;
+        else spriteNum++;
     }
+
+    private void TryJump()
+    {
+        if (!touchingGround) return;
+
+        touchingGround = false;
+        Jump();
+    }
+
 
     private void Jump()
     {
-
+        Speed = new((int)jumpDir * 5, -10);
     }
 
     private bool SeesPlayer()
     {
-        Raylib.DrawRectangleRec(sight, Color.RED);
         return Raylib.CheckCollisionRecs(Player.Hitbox, sight);
     }
 }
