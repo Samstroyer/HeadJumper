@@ -12,8 +12,10 @@ internal class Slime : Enemy
     }
 
     bool touchingGround = true;
+    bool ready = true;
 
-    private System.Timers.Timer SpriteTimer;
+    private System.Timers.Timer jumpCooldown;
+    private System.Timers.Timer spriteTimer;
 
     private int spriteNum = 0;
 
@@ -32,18 +34,26 @@ internal class Slime : Enemy
 
     internal Slime(Vector2 pos) : base()
     {
-        SpriteTimer = new(200)
+        spriteTimer = new(200)
         {
             AutoReset = true,
             Enabled = true,
         };
 
-        SpriteTimer.Elapsed += ChangeSprite;
+        jumpCooldown = new(2000)
+        {
+            AutoReset = false,
+            Enabled = true,
+        };
 
-        SpriteTimer.Start();
+        spriteTimer.Elapsed += ChangeSprite;
+        jumpCooldown.Elapsed += ReadyToJump;
+
+        spriteTimer.Start();
 
         Position = pos;
         Size = new(50, 50);
+        Speed = new(0, 0);
 
         Damage = 15;
 
@@ -59,12 +69,9 @@ internal class Slime : Enemy
             return;
         }
 
-        Move();
-
         if (SeesPlayer())
         {
-            if (Player.Position.X > Position.X) jumpDir = PlayerDir.right;
-            else jumpDir = PlayerDir.left;
+            Move();
             TryJump();
         }
         else jumpDir = PlayerDir.blind;
@@ -80,15 +87,18 @@ internal class Slime : Enemy
 
     private void Move()
     {
-        var collisionInfo = World.Colliding(Position, Size);
+        if (Player.Position.X > Position.X) jumpDir = PlayerDir.right;
+        else jumpDir = PlayerDir.left;
 
         Speed.Y += World.gravity;
 
+        var collisionInfo = World.Colliding(Position, Size);
         if (collisionInfo.Item1)
         {
             Position.Y = collisionInfo.Item2 - Size.Y;
             Speed.Y = 0;
             touchingGround = true;
+            jumpDir = PlayerDir.blind;
         }
 
         Position += Speed;
@@ -100,18 +110,34 @@ internal class Slime : Enemy
         else spriteNum++;
     }
 
+    private void ReadyToJump(Object source, ElapsedEventArgs e)
+    {
+        ready = true;
+    }
+
     private void TryJump()
     {
         if (!touchingGround) return;
+        if (!ready) return;
 
-        touchingGround = false;
         Jump();
     }
 
-
     private void Jump()
     {
+        touchingGround = false;
+
+        spriteTimer.Stop();
+
+        spriteNum = 0;
+        ready = false;
+
+        spriteTimer.Start();
+
+        jumpCooldown.Start();
+
         Speed = new((int)jumpDir * 5, -10);
+        Position += Speed;
     }
 
     private bool SeesPlayer()
