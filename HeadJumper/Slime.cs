@@ -6,8 +6,8 @@ internal class Slime : Enemy
 {
     enum PlayerDir
     {
-        left = -1,
-        right = 1,
+        left = -3,
+        right = 3,
         blind = 0,
     }
 
@@ -69,15 +69,20 @@ internal class Slime : Enemy
             return;
         }
 
+        Movement();
+
+        if (touchingGround) Raylib.DrawTexturePro(ImageLib.SlimeSpriteSheet, new(0, 0, 32, 32), hitbox, new(0, 0), 0f, Color.WHITE);
+        else Raylib.DrawTexturePro(ImageLib.SlimeSpriteSheet, new(32 * (spriteNum % 8), 0, 32, 32), hitbox, new(0, 0), 0f, Color.WHITE);
+    }
+
+    private void Movement()
+    {
         if (SeesPlayer())
         {
             Move();
             TryJump();
         }
         else jumpDir = PlayerDir.blind;
-
-        if (touchingGround) Raylib.DrawTexturePro(ImageLib.SlimeSpriteSheet, new(0, 0, 32, 32), hitbox, new(0, 0), 0f, Color.WHITE);
-        else Raylib.DrawTexturePro(ImageLib.SlimeSpriteSheet, new(32 * (spriteNum % 8), 0, 32, 32), hitbox, new(0, 0), 0f, Color.WHITE);
     }
 
     private bool CheckBounds()
@@ -87,10 +92,13 @@ internal class Slime : Enemy
 
     private void Move()
     {
-        if (Player.Position.X > Position.X) jumpDir = PlayerDir.right;
+        if (touchingGround) jumpDir = PlayerDir.blind;
+        else if (Player.Position.X > Position.X) jumpDir = PlayerDir.right;
         else jumpDir = PlayerDir.left;
 
+        Speed.X = (int)jumpDir;
         Speed.Y += World.gravity;
+        if (Speed.Y > 20) Speed.Y = 20;
 
         var collisionInfo = World.Colliding(Position, Size);
         if (collisionInfo.Item1)
