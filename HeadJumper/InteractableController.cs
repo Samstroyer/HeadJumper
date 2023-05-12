@@ -8,7 +8,7 @@ public class InteractableController
     {
         interactableDict = new()
         {
-            {new(400, -10), new Door(1400, -200)},
+            {new(1200, -440), new Door(2150, 5)},
             // {new(40, -40), new BoulderStack(40, - 200)}
         };
 

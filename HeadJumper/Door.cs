@@ -2,6 +2,8 @@ using Raylib_cs;
 
 public class Door : Interactable
 {
+    public int maxWorldDist;
+
     Rectangle hitbox
     {
         get
@@ -13,5 +15,6 @@ public class Door : Interactable
     public Door(int x, int y) : base(x, y)
     {
         size = new(40, 40);
+        maxWorldDist = x;
     }
 }

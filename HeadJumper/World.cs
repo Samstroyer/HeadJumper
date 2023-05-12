@@ -19,7 +19,7 @@ static internal class World
     static internal CameraController camc = new(new(Engine.screenDim.X / 2, Engine.screenDim.Y / 2), Player.Position, 0f, 1f);
 
     internal static float gravity = 0.5f;
-    public static Vector2 Border = new(4000, 0);
+    public static Vector2 Border = new(12000, 0);
 
     internal static void LoadObjects()
     {

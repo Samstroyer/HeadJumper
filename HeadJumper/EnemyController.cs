@@ -22,15 +22,4 @@ internal class EnemyController
             else enemies[i].UpdateAndDraw();
         }
     }
-
-    // internal void CheckEnemyHits()
-    // {
-    //     for (int i = enemies.Count - 1; i >= 0; i--)
-    //     {
-    //         if (enemies[i].Colliding())
-    //         {
-    //             Player.LoseHitpoints(enemies[i].Damage);
-    //         }
-    //     }
-    // }
 }
