@@ -91,7 +91,16 @@ internal class Player
         // Add the speed of a moving platform
         Speed += World.TouchingPlatformSpeed(Position, Size);
 
-        Position += Speed;
+        if (World.WillGoBeyond())
+        {
+            Position.X -= Speed.X;
+            Position.Y += Speed.Y;
+        }
+        else
+        {
+            Position.X += Speed.X;
+            Position.Y += Speed.Y;
+        }
 
         // World Borders
         if (Position.X < 0) Position.X = 0;

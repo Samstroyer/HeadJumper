@@ -26,4 +26,15 @@ public class InteractableController
             entry.Value.DrawAndUpdate(entry.Key.IsOn());
         }
     }
+
+    internal bool CanTravel()
+    {
+        foreach (var entry in interactableDict)
+        {
+            if (!entry.Value.obstructing) continue;
+            if (entry.Value.Border()) return true;
+        }
+
+        return false;
+    }
 }

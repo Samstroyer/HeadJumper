@@ -2,19 +2,13 @@ using Raylib_cs;
 
 public class Door : Interactable
 {
-    public int maxWorldDist;
+    public static Texture2D texture = Raylib.LoadTexture("./Sprites/DoorSprite.png");
 
-    Rectangle hitbox
-    {
-        get
-        {
-            return new(position.X, position.Y, size.X, size.Y);
-        }
-    }
+    public Door(int x, int y) : base(x, y) { }
 
-    public Door(int x, int y) : base(x, y)
+    public override bool Border()
     {
-        size = new(40, 40);
-        maxWorldDist = x;
+        if (Raylib.CheckCollisionPointLine(Player.Position, new(position.X, -10000), new(position.X, 10000), 40)) return true;
+        else return false;
     }
 }

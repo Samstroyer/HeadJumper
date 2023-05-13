@@ -154,4 +154,9 @@ static internal class World
         Vector2 basePosition = Player.Position + p.LookAhead();
         camc.FocusCamera(basePosition);
     }
+
+    internal static bool WillGoBeyond()
+    {
+        return ic.CanTravel();
+    }
 }
