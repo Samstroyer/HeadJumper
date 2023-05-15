@@ -9,7 +9,8 @@ static internal class World
     // Only add moveable objects - other objects with the json
     static internal List<WorldObject> objects = new()
     {
-        new MovingWorldObject(new(400, -60, 200, 20) , 0.08f, new(200, 0)),
+        new MovingWorldObject(new(3100, 50, 200, 20) , 0.03f, new(500, 0)),
+        new MovingWorldObject(new(4217, -60, 200, 20) , 0.02f, new(400, 0)),
     };
 
     static internal EnemyController ec = new();

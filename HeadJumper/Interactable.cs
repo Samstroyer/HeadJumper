@@ -4,13 +4,13 @@ using Raylib_cs;
 public abstract class Interactable
 {
     public bool obstructing = true;
-    protected Vector2 size = new(40, 40);
+    protected Vector2 size = new(60, 60);
     public int maxWorldDist;
     public Vector2 position;
 
     public Interactable(int x, int y)
     {
-        position = new(x, y);
+        position = new(x - 20, y - 20);
         maxWorldDist = x;
     }
 

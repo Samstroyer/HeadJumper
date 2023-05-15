@@ -23,10 +23,32 @@ internal class Projectile : BoostInfo
     internal override void Update()
     {
         if (!isActive) return;
+        Move();
+        CheckEnemyHits();
+        Render();
+    }
+
+    private void CheckEnemyHits()
+    {
+        foreach (Enemy e in World.ec.enemies)
+        {
+            if (e is Spike) continue;
+            if (e is Slime)
+            {
+                if (Raylib.CheckCollisionRecs(e.GetHitbox(), r))
+                {
+                    e.dead = true;
+                    World.cc.AddDropAt(e.Position);
+                }
+            }
+        }
+    }
+
+    private void Move()
+    {
         position.X += speed;
 
         r = new(position.X, position.Y, 40, 40);
-        Render();
     }
 
     internal override void TryActivate()
@@ -44,7 +66,7 @@ internal class Projectile : BoostInfo
         lastActivated = DateTime.Now.AddSeconds(activeTimer.Interval / 1000);
 
         speed = (int)shootingDir;
-        position = Player.Position;
+        position = Player.Position + new Vector2(0, 20);
     }
 
     internal static void ChangeDir()

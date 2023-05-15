@@ -1,9 +1,11 @@
 using Raylib_cs;
 using System;
+using System.Numerics;
 
 internal class CollectibleController
 {
     internal List<Collectible> collectibles = new();
+    static Random r = new();
 
     internal CollectibleController()
     {
@@ -15,6 +17,25 @@ internal class CollectibleController
             new Potion(new(200, -30)),
             new Potion(new(100, -10)),
         };
+    }
+
+    internal void AddDropAt(Vector2 position)
+    {
+        float spawn = r.Next(100);
+
+        if (spawn < 10)
+        {
+            collectibles.Add(new Potion(position));
+            collectibles.Add(new Coin(position));
+        }
+        else if (spawn < 45)
+        {
+            collectibles.Add(new Potion(position));
+        }
+        else if (spawn < 80)
+        {
+            collectibles.Add(new Coin(position));
+        }
     }
 
     internal void DrawAndUpdateCollectibles()

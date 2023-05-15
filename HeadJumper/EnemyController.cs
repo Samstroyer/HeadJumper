@@ -9,9 +9,13 @@ internal class EnemyController
     {
         enemies = new()
         {
-            new Spike(new(100, 0)),
             new Slime(new(200, -30)),
         };
+
+        for (int i = 0; i < 2200; i += 40)
+        {
+            enemies.Add(new Spike(new(2717 + i, 77)));
+        }
     }
 
     internal void DrawAndUpdateEnemies()

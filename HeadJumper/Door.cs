@@ -11,4 +11,18 @@ public class Door : Interactable
         if (Raylib.CheckCollisionPointLine(Player.Position, new(position.X, -10000), new(position.X, 10000), 40)) return true;
         else return false;
     }
+
+    public override void DrawAndUpdate(bool counterPartOn)
+    {
+        obstructing = !counterPartOn;
+        Color c = obstructing ? Color.RED : Color.GREEN;
+        if (obstructing)
+        {
+            Raylib.DrawTexturePro(texture, new(0, 0, 40, 40), new(position.X, position.Y, size.X, size.Y), new(0, 0), 0f, Color.WHITE);
+        }
+        else
+        {
+            Raylib.DrawTexturePro(texture, new(40, 40, 40, 40), new(position.X, position.Y, size.X, size.Y), new(0, 0), 0f, Color.WHITE);
+        }
+    }
 }

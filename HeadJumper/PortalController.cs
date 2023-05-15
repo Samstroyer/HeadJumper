@@ -9,8 +9,8 @@ public class PortalController
         // Maybe load from json?
         portals = new()
         {
-            new Portal(200, -200),
-            new Portal(300, -20)
+            new Portal(5950, 17),
+            new Portal(5950, 1032)
         };
 
         portals[0].LinkTo(portals[1]);

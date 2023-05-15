@@ -40,15 +40,15 @@ public class CameraController
         if (targetOverride)
         {
             cam.target = new(
-                Raymath.Lerp(cam.target.X, overridenPosition.X, 0.1f),
-                Raymath.Lerp(cam.target.Y, overridenPosition.Y, 0.1f)
+                Raymath.Lerp(cam.target.X, overridenPosition.X, 0.15f),
+                Raymath.Lerp(cam.target.Y, overridenPosition.Y, 0.15f)
                 );
         }
         else
         {
             cam.target = new(
-                Raymath.Lerp(cam.target.X, basePos.X, 0.2f),
-                Raymath.Lerp(cam.target.Y, basePos.Y, 0.2f)
+                Raymath.Lerp(cam.target.X, basePos.X, 0.15f),
+                Raymath.Lerp(cam.target.Y, basePos.Y, 0.15f)
                 );
         }
     }

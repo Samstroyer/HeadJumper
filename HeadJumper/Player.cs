@@ -196,14 +196,42 @@ internal class Player
         // return new(cameraLerp, 0);
     }
 
-    internal static void DrawHUD()
+    // internal static void DrawHUD()
+    // {
+    //     Raylib.DrawTexturePro(ImageLib.HUDElement, new(0, 0, ImageLib.HUDElement.width, ImageLib.HUDElement.height), new(0, 0, ImageLib.HUDElement.width, ImageLib.HUDElement.height), new(0, 0), 0f, Color.WHITE);
+    //     DrawHPStats();
+    //     DrawCoinStats();
+    // }
+
+    // private static void DrawCoinStats()
+    // {
+    //     Raylib.DrawTexture(ImageLib.Coin, 800, 10, Color.WHITE);
+
+    //     int width = Raylib.MeasureText($"{coins}", 20);
+    //     Raylib.DrawText($"{coins}", 820 - width / 2, 22, 20, Color.BLACK);
+    // }
+
+    // private static void DrawHPStats()
+    // {
+    //     Raylib.DrawTexture(ImageLib.Heart, 600, 10, Color.WHITE);
+    //     Raylib.DrawText($"HP:{hitPoints}", 600, 55, 20, Color.BLACK);
+
+    //     // Calculate height of HP bar (with percentage)
+    //     float hpPercentage = hitPoints / maxHealth;
+    //     Rectangle hpBar = new(650, 10 + ((1 - hpPercentage) * 40), 10, hpPercentage * 40);
+
+    //     Raylib.DrawRectangle(650, 10, 10, 40, Color.GRAY);
+    //     Raylib.DrawRectangleRec(hpBar, Color.RED);
+    // }
+
+    internal static void DrawNewHUD()
     {
         Raylib.DrawTexturePro(ImageLib.HUDElement, new(0, 0, ImageLib.HUDElement.width, ImageLib.HUDElement.height), new(0, 0, ImageLib.HUDElement.width, ImageLib.HUDElement.height), new(0, 0), 0f, Color.WHITE);
-        DrawHPStats();
-        DrawCoinStats();
+        DrawNewHPStats();
+        DrawNewCoinStats();
     }
 
-    private static void DrawCoinStats()
+    private static void DrawNewCoinStats()
     {
         Raylib.DrawTexture(ImageLib.Coin, 800, 10, Color.WHITE);
 
@@ -211,7 +239,7 @@ internal class Player
         Raylib.DrawText($"{coins}", 820 - width / 2, 22, 20, Color.BLACK);
     }
 
-    private static void DrawHPStats()
+    private static void DrawNewHPStats()
     {
         Raylib.DrawTexture(ImageLib.Heart, 600, 10, Color.WHITE);
         Raylib.DrawText($"HP:{hitPoints}", 600, 55, 20, Color.BLACK);

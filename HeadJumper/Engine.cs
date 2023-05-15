@@ -76,7 +76,10 @@ internal class Engine
     {
         Raylib.EndMode2D();
         PowerUpController.RenderBoostSymbols();
-        Player.DrawHUD();
+        //OLD HUD
+        //Player.DrawHUD();
+
+        Player.DrawNewHUD();
         Raylib.EndDrawing();
     }
     #endregion 
