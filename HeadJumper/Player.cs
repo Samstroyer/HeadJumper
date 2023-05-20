@@ -248,6 +248,19 @@ internal class Player
         float hpPercentage = hitPoints / maxHealth;
         Rectangle hpBar = new(650, 10 + ((1 - hpPercentage) * 40), 10, hpPercentage * 40);
 
+        if (hpPercentage < 0.1f)
+        {
+            Raylib.DrawTexturePro(ImageLib.NoHealth, new(0, 0, 178, 51), new(5, 0, 178, 50), new(0, 0), 0f, Color.WHITE);
+        }
+        else if (hpPercentage < 0.40f)
+        {
+            Raylib.DrawTexturePro(ImageLib.MediumHealth, new(0, 0, 115, 51), new(5, 0, 115, 51), new(0, 0), 0f, Color.WHITE);
+        }
+        else if (hpPercentage < 0.70f)
+        {
+            Raylib.DrawTexturePro(ImageLib.AlmostFullHealth, new(0, 0, 40, 40), new(5, 0, 50, 50), new(0, 0), 0f, Color.WHITE);
+        }
+
         Raylib.DrawRectangle(650, 10, 10, 40, Color.GRAY);
         Raylib.DrawRectangleRec(hpBar, Color.RED);
     }

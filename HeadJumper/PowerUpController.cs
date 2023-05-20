@@ -43,6 +43,7 @@ static internal class PowerUpController
 
     internal static void RenderBoostSymbols()
     {
+        return;
         int spacing = 70;
         int xPos = 10;
         int counter = 1;
