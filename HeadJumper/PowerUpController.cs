@@ -10,6 +10,7 @@ internal enum PowerUps
 
 static internal class PowerUpController
 {
+    internal static Color uiColor = new(64, 104, 103, 255);
     internal static Color TransparentGray = new(100, 100, 100, 100);
 
     internal static Dictionary<PowerUps, BoostInfo> boosts = new()
@@ -43,7 +44,6 @@ static internal class PowerUpController
 
     internal static void RenderBoostSymbols()
     {
-        return;
         int spacing = 70;
         int xPos = 10;
         int counter = 1;
