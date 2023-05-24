@@ -9,7 +9,6 @@ public class InteractableController
         interactableDict = new()
         {
             {new(1200, -440), new Door(2150, 5)},
-            // {new(40, -40), new BoulderStack(40, - 200)}
         };
 
         foreach (var entry in interactableDict)

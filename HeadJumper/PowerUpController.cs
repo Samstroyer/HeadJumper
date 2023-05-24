@@ -42,41 +42,66 @@ static internal class PowerUpController
         }
     }
 
+    // internal static void OldRenderBoostSymbols()
+    // {
+    //     int spacing = 70;
+    //     int xPos = 10;
+    //     int counter = 1;
+
+    //     foreach (var b in boosts)
+    //     {
+    //         Raylib.DrawRectangle(xPos, 10, 40, 40, TransparentGray);
+    //         Texture2D boostTexture = b.Value.GetTexture();
+    //         Raylib.DrawTexture(boostTexture, xPos, 10, Color.WHITE);
+
+    //         if (b.Value.available)
+    //         {
+    //             int textWidth = Raylib.MeasureText("key: " + counter.ToString(), 16);
+    //             Raylib.DrawText("key: " + counter.ToString(), (xPos + 20) - (textWidth / 2), 55, 16, Color.GREEN);
+    //         }
+    //         else if (b.Value.isActive)
+    //         {
+    //             var time = b.Value.lastActivated - DateTime.Now;
+    //             string displayedTime = (time.Seconds + "." + (Math.Floor((decimal)time.Milliseconds / 100))).ToString();
+
+    //             int textWidth = Raylib.MeasureText(displayedTime, 16);
+    //             Raylib.DrawText(displayedTime, (xPos + 20) - (textWidth / 2), 55, 16, Color.BLUE);
+    //         }
+    //         else
+    //         {
+    //             var time = b.Value.lastActivated - DateTime.Now;
+    //             string displayedTime = (time.Seconds + "." + (Math.Floor((decimal)time.Milliseconds / 100))).ToString();
+
+    //             int textWidth = Raylib.MeasureText(displayedTime, 16);
+    //             Raylib.DrawText(displayedTime, (xPos + 20) - (textWidth / 2), 55, 16, Color.RED);
+    //         }
+
+    //         xPos += spacing; counter++;
+    //     }
+
     internal static void RenderBoostSymbols()
     {
-        int spacing = 70;
-        int xPos = 10;
-        int counter = 1;
+        // boosts[PowerUps.Speed].
+        // if (b.Value.available)
+        //         {
+        //             int textWidth = Raylib.MeasureText("key: " + counter.ToString(), 16);
+        //             Raylib.DrawText("key: " + counter.ToString(), (xPos + 20) - (textWidth / 2), 55, 16, Color.GREEN);
+        //         }
+        //         else if (b.Value.isActive)
+        //         {
+        //             var time = b.Value.lastActivated - DateTime.Now;
+        //             string displayedTime = (time.Seconds + "." + (Math.Floor((decimal)time.Milliseconds / 100))).ToString();
 
-        foreach (var b in boosts)
-        {
-            Raylib.DrawRectangle(xPos, 10, 40, 40, TransparentGray);
-            Texture2D boostTexture = b.Value.GetTexture();
-            Raylib.DrawTexture(boostTexture, xPos, 10, Color.WHITE);
+        //             int textWidth = Raylib.MeasureText(displayedTime, 16);
+        //             Raylib.DrawText(displayedTime, (xPos + 20) - (textWidth / 2), 55, 16, Color.BLUE);
+        //         }
+        //         else
+        //         {
+        //             var time = b.Value.lastActivated - DateTime.Now;
+        //             string displayedTime = (time.Seconds + "." + (Math.Floor((decimal)time.Milliseconds / 100))).ToString();
 
-            if (b.Value.available)
-            {
-                int textWidth = Raylib.MeasureText("key: " + counter.ToString(), 16);
-                Raylib.DrawText("key: " + counter.ToString(), (xPos + 20) - (textWidth / 2), 55, 16, Color.GREEN);
-            }
-            else if (b.Value.isActive)
-            {
-                var time = b.Value.lastActivated - DateTime.Now;
-                string displayedTime = (time.Seconds + "." + (Math.Floor((decimal)time.Milliseconds / 100))).ToString();
-
-                int textWidth = Raylib.MeasureText(displayedTime, 16);
-                Raylib.DrawText(displayedTime, (xPos + 20) - (textWidth / 2), 55, 16, Color.BLUE);
-            }
-            else
-            {
-                var time = b.Value.lastActivated - DateTime.Now;
-                string displayedTime = (time.Seconds + "." + (Math.Floor((decimal)time.Milliseconds / 100))).ToString();
-
-                int textWidth = Raylib.MeasureText(displayedTime, 16);
-                Raylib.DrawText(displayedTime, (xPos + 20) - (textWidth / 2), 55, 16, Color.RED);
-            }
-
-            xPos += spacing; counter++;
-        }
+        //             int textWidth = Raylib.MeasureText(displayedTime, 16);
+        //             Raylib.DrawText(displayedTime, (xPos + 20) - (textWidth / 2), 55, 16, Color.RED);
+        //         }
     }
 }

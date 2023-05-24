@@ -226,24 +226,19 @@ internal class Player
 
     internal static void DrawNewHUD()
     {
-        Raylib.DrawTexturePro(ImageLib.HUDElement, new(0, 0, ImageLib.HUDElement.width, ImageLib.HUDElement.height), new(0, 0, ImageLib.HUDElement.width, ImageLib.HUDElement.height), new(0, 0), 0f, Color.WHITE);
+        TopLeft();
         DrawNewHPStats();
-        DrawNewCoinStats();
     }
 
-    private static void DrawNewCoinStats()
+    private static void TopLeft()
     {
-        Raylib.DrawTexture(ImageLib.Coin, 800, 10, Color.WHITE);
-
-        int width = Raylib.MeasureText($"{coins}", 20);
-        Raylib.DrawText($"{coins}", 820 - width / 2, 22, 20, Color.BLACK);
+        Raylib.DrawTexturePro(ImageLib.HUDElement, new(0, 0, ImageLib.HUDElement.width, ImageLib.HUDElement.height), new(0, 0, ImageLib.HUDElement.width, ImageLib.HUDElement.height), new(0, 0), 0f, Color.WHITE);
+        Raylib.DrawText(Player.coins.ToString(), 45, 62, 32, Color.BLACK);
+        Raylib.DrawText(Player.kills.ToString(), 150, 62, 32, Color.BLACK);
     }
 
     private static void DrawNewHPStats()
     {
-        Raylib.DrawTexture(ImageLib.Heart, 600, 10, Color.WHITE);
-        Raylib.DrawText($"HP:{hitPoints}", 600, 55, 20, Color.BLACK);
-
         // Calculate height of HP bar (with percentage)
         float hpPercentage = hitPoints / maxHealth;
         Rectangle hpBar = new(650, 10 + ((1 - hpPercentage) * 40), 10, hpPercentage * 40);
@@ -260,9 +255,6 @@ internal class Player
         {
             Raylib.DrawTexturePro(ImageLib.AlmostFullHealth, new(0, 0, 40, 40), new(5, 0, 50, 50), new(0, 0), 0f, Color.WHITE);
         }
-
-        Raylib.DrawRectangle(650, 10, 10, 40, Color.GRAY);
-        Raylib.DrawRectangleRec(hpBar, Color.RED);
     }
 
     internal static void LoseHitpoints(int amount)
